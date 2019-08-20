@@ -40,10 +40,36 @@ files:
 permissions:
   - object: /var/www/apps/TweetSagasukun
     pattern:
-    except:
+    except: [/var/www/apps/TweetSagasukun/storage, /var/www/apps/TweetSagasukun/bootstrap/cache]
     owner: root
     group: www
     mode: 775
+    type:
+      - directory
+  - object: /var/www/apps/TweetSagasukun
+    pattern:
+    except: [/var/www/apps/TweetSagasukun/storage, /var/www/apps/TweetSagasukun/bootstrap/cache]
+    owner: root
+    group: www
+    mode: 644
+    type:
+      - file
+  - object: /var/www/apps/TweetSagasukun/storage
+    pattern:
+    except:
+    owner: root
+    group: www
+    mode: 2775
+    acls: g::rwx
+    type:
+      - directory
+  - object: /var/www/apps/TweetSagasukun/bootstrap/cache
+    pattern:
+    except:
+    owner: root
+    group: www
+    mode: 2775
+    acls: g::rwx
     type:
       - directory
 # - object: /var/www/apps/TweetSagasukun/public
