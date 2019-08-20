@@ -61,7 +61,7 @@ permissions:
     group: www
     mode: 2775
     acls:
-      - g::rwx
+      - g:www:rwx
     type:
       - directory
   - object: /var/www/apps/TweetSagasukun/bootstrap/cache
@@ -71,7 +71,7 @@ permissions:
     group: www
     mode: 2775
     acls:
-      - g::rwx
+      - g:www:rwx
     type:
       - directory
 # - object: /var/www/apps/TweetSagasukun/public
