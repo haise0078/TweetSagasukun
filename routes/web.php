@@ -12,7 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('home');
 });
 
-Route::get('twitter', 'TwitterController@index');
+
+Route::get('twitterSignIn', 'Auth\TwitterSignInController@register');
+Route::get('registerCallBack', 'Auth\TwitterSignInController@callback');
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
