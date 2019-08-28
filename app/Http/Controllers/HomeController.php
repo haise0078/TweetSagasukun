@@ -28,10 +28,9 @@ class HomeController extends Controller
             return redirect('twitterSignIn');
         } else {
             $connection = \TwitterConnection::makeConnection();
-            $result = $connection->get('statuses/home_timeline', array("count" => 5));
-            return view('twitter', [
-                "result" => $result
-            ]);
+            $result = $connection->get("search/tweets", ["q" => "lenovo (from:taritari_vtuber OR from:haise0202)", "count" => 5]);
+            dd($result);
+            return view('twitter', ["result" => $result->statuses]);
         }
     }
 }

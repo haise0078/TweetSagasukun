@@ -1,20 +1,13 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>TweetSagasuKun</title>
-    <link href="{!! public_path() !!}/css/index.css" rel="stylesheet">
-</head>
-
+@section('content')
 <body>
     <div>
         @foreach ($result as $tweet)
             <div class="card mb-2">
                 <div class="card-body">
                     <div class="media">
-                        <img src="https://placehold.jp/70x70.png" class="rounded-circle mr-4">
+                        <img src={{$tweet->user->profile_image_url_https}} class="rounded-circle mr-4">
                         <div class="media-body">
                             <h5 class="d-inline mr-3"><strong>{{ $tweet->user->name }}</strong></h5>
                             <h6 class="d-inline text-secondary">{{ date('Y/m/d', strtotime($tweet->created_at)) }}</h6>
@@ -24,12 +17,12 @@
                 </div>
                 <div class="card-footer bg-white border-top-0">
                     <div class="d-flex flex-row justify-content-end">
-                        <div class="mr-5"><i class="far fa-comment text-secondary"></i></div>
-                        <div class="mr-5"><i class="fas fa-retweet text-secondary"></i></div>
-                        <div class="mr-5"><i class="far fa-heart text-secondary"></i></div>
+                        <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{$tweet->retweet_count}}</div>
+                        <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{$tweet->favorite_count}}</div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
 </body>
+@endsection

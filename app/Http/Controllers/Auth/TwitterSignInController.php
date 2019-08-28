@@ -51,14 +51,7 @@ class TwitterSignInController extends Controller
 
     public function callback(){
         $access_token = \Twitter::oauth("oauth/access_token", ["oauth_verifier" => Input::get('oauth_verifier'), "oauth_token" => Input::get('oauth_token')]);
-        // $validator = Validator::make($access_token, [
-        //     'user_id' => ['required', 'unique:TwitterInfo,twitter_id'],
-        //     'oauth_token' => ['required', 'unique:TwitterInfo,oauth_token'],
-        // ]);
-        // if ($validator->fails()) {
-        //     return redirect('home');
-        // }
-        $twitter = TwitterInfomation::create([
+        TwitterInfomation::create([
             'user_id' => Auth::id(),
             'twitter_id' => $access_token['user_id'],
             'screen_name' => $access_token['screen_name'],
