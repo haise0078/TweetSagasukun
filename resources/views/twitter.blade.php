@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@include('components/tweetSearch')
+
 <body>
     <div>
         @foreach ($result as $tweet)

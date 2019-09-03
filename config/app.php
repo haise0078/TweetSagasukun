@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TwitterServiceProvider::class,
         App\Providers\TwitterConnectionProvider::class,
+        App\Providers\TweetSearchProvider::class,
 
     ],
 

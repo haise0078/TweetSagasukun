@@ -29,7 +29,7 @@ class HomeController extends Controller
         } else {
             $connection = \TwitterConnection::makeConnection();
             $result = $connection->get("search/tweets", ["q" => "lenovo (from:taritari_vtuber OR from:haise0202)", "count" => 5]);
-            dd($result);
+            // dd($result);
             return view('twitter', ["result" => $result->statuses]);
         }
     }

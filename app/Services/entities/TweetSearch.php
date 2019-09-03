@@ -1,5 +1,16 @@
-<<?php
+<?php
+namespace App\Services;
 
-namespace App\Services\entities;
-use Abraham\TwitterOAuth;
+use Illuminate\Support\Facades\Auth;
 
+class TweetSearch {
+    public function getTweets($query){
+        if ( (Auth::user()->twitterInfomation())->get()->isEmpty()){
+            return redirect('twitterSignIn');
+        } else {
+            $connection = \TwitterConnection::makeConnection();
+            $result = $connection->get("search/tweets", ["q" => $query, "count" => 50]);
+            return $result;
+        }
+    }
+}
