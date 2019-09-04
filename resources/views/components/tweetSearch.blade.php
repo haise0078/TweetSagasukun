@@ -4,7 +4,7 @@
 
 <div class="tweet_search">
     検索フォーム
-    <form id="searchForm" action="tweet/search" method="POST">
+    <form id="searchForm" action="/tweet/search" method="POST">
         @csrf
         <input type="text" name="keyword" placeholder="キーワードを入力">
         <input type="text" name="hash_tag" placeholder="ハッシュタグを入力">
@@ -15,6 +15,11 @@
         <b>指定なし：</b><input type="radio" name="include_media" value='off' checked="checked">
         <b>画像 ：</b><input type="radio" name="include_media" value='image'>
         <b>動画 ：</b><input type="radio" name="include_media" value='video'>
+        <br>
+        <b>リツイートを</b>
+        <br>
+        <b>含めない ：</b><input type="radio" name="include_retweet" value='off' checked="checked">
+        <b>含める ：</b><input type="radio" name="include_retweet" value='on'>
         <br>
         {{-- <td align="right"><b>フォロワーのみ：</b></td>
         <input type="checkbox" name="follower_tweets" value=true>

@@ -14,6 +14,7 @@ class TweetController extends Controller
     }
 
     public function search(Request $request){
+        // dd($request);
         $query =  '';
         if (!is_null($request['keyword'])) {
             $keyword = $request['keyword'];
@@ -40,19 +41,30 @@ class TweetController extends Controller
         $include_media = $request['include_media'];
         switch ($include_media) {
             case 'image':
-                $query . ' ' . 'filter:images';
+                $query = $query . ' ' . 'filter:images';
                 break;
             case 'video':
-                $query . ' ' . 'filter:videos';
+                $query = $query . ' ' . 'filter:videos';
+                break;
+            default:
+                break;
+        }
+        $include_retweet = $request['include_retweet'];
+        switch ($include_retweet) {
+            case 'on':
+                $query = $query . ' ' . 'include:retweets';
+                break;
+            case 'off':
+                $query = $query . ' ' . 'exclude:retweets';
                 break;
             default:
                 break;
         }
         if (!is_null($request['favorite_num'])) {
-            $query . 'min_faves:' . $request['favorite_num'];
+            $query = $query . 'min_faves:' . $request['favorite_num'];
         }
         if (!is_null($request['retweet_num'])) {
-            $query . 'min_retweets:' . $request['retweet_num'];
+            $query = $query . 'min_retweets:' . $request['retweet_num'];
         }
         $result = $this->tweetSearch->getTweets($query);
         return view('twitter', ["result" => $result->statuses]);
