@@ -9,7 +9,7 @@ class TweetSearch {
             return redirect('twitterSignIn');
         } else {
             $connection = \TwitterConnection::makeConnection();
-            $result = $connection->get("search/tweets", ["q" => $query, "count" => 50]);
+            $result = $connection->get("search/tweets", ["q" => $query, "count" => 50, "tweet_mode" => "extended"]);
             return $result;
         }
     }
