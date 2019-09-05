@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\TweetSearch;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    protected $tweetSearch;
+
+    public function __construct(TweetSearch $tweetSearch){
+        $this->tweetSearch = $tweetSearch;
+        $this->middleware('auth');
+    }
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -27,9 +29,7 @@ class HomeController extends Controller
         if ( (Auth::user()->twitterInfomation())->get()->isEmpty()){
             return redirect('twitterSignIn');
         } else {
-            $connection = \TwitterConnection::makeConnection();
-            $result = $connection->get("search/tweets", ["q" => "lenovo (from:taritari_vtuber OR from:haise0202)", "count" => 5]);
-            // dd($result);
+            $result = $this->tweetSearch->getTweets('飯テロ');
             return view('twitter', ["result" => $result->statuses]);
         }
     }
