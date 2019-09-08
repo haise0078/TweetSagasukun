@@ -1784,7 +1784,10 @@ __webpack_require__.r(__webpack_exports__);
       },
       termsName: '保存条件1',
       selectedTerm: '',
-      savedTerms: []
+      savedTerms: [{
+        id: 0,
+        name: ''
+      }]
     };
   },
   mounted: function mounted() {
@@ -1794,16 +1797,21 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     if (localStorage.savedTerms) {
-      this.savedTerms = localStorage.savedTerms;
-      console.log(localStorage.savedTerms);
+      this.savedTerms = JSON.parse(localStorage.getItem('savedTerms'));
+      console.log(this.savedTerms);
     }
   },
   methods: {
     saveTerms: function saveTerms() {
       localStorage.setItem(this.termsName, JSON.stringify(this.terms));
-      this.savedTerms.push(this.termsName);
-      localStorage.savedTerms = this.savedTerms;
-      console.log(this.savedTerms);
+      console.log(this.termsName);
+      this.savedTerms.push({
+        id: this.savedTerms.length,
+        name: this.termsName
+      }); // this.$set(this.savedTerms, this.savedTerms.length, this.termsName);
+
+      localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+      console.log(this.savedTerms.length);
     },
     selectTerm: function selectTerm() {
       this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
@@ -38186,8 +38194,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _vm._l(_vm.savedTerms, function(savedTerm) {
-          return _c("option", { key: savedTerm }, [
-            _vm._v("\n            " + _vm._s(savedTerm) + "\n        ")
+          return _c("option", { key: savedTerm.id }, [
+            _vm._v("\n            " + _vm._s(savedTerm.name) + "\n        ")
           ])
         })
       ],

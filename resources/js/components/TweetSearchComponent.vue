@@ -28,8 +28,8 @@
         <button @click='selectTerm'>検索条件を反映</button>
         <select v-model="selectedTerm">
             <option disabled value="">条件を選択</option>
-            <option v-for="savedTerm in savedTerms" v-bind:key="savedTerm">
-                {{ savedTerm }}
+            <option v-for="savedTerm in savedTerms" v-bind:key="savedTerm.id">
+                {{ savedTerm.name }}
             </option>
         </select>
     </div>
@@ -53,7 +53,7 @@ export default {
             },
             termsName: '保存条件1',
             selectedTerm: '',
-            savedTerms: [],
+            savedTerms: [{id: 0, name: ''}],
         }
     },
      mounted() {
@@ -62,16 +62,18 @@ export default {
             console.log(localStorage.getItem(this.termsName));
         }
         if (localStorage.savedTerms) {
-            this.savedTerms = localStorage.savedTerms;
-            console.log(localStorage.savedTerms);
+            this.savedTerms = JSON.parse(localStorage.getItem('savedTerms'));
+            console.log(this.savedTerms);
         }
     },
     methods: {
         saveTerms(){
             localStorage.setItem(this.termsName, JSON.stringify(this.terms));
-            this.savedTerms.push(this.termsName);
-            localStorage.savedTerms = this.savedTerms;
-            console.log(this.savedTerms);
+            console.log(this.termsName);
+            this.savedTerms.push({id: this.savedTerms.length, name: this.termsName});
+            // this.$set(this.savedTerms, this.savedTerms.length, this.termsName);
+            localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+            console.log(this.savedTerms.length);
         },
         selectTerm(){
             this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
