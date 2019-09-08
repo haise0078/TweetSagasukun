@@ -38,34 +38,25 @@ class TweetController extends Controller
                 $query = $query . ' ' . $hash_tag;
             }
         }
-        $include_media = $request['include_media'];
-        switch ($include_media) {
-            case 'image':
-                $query = $query . ' ' . 'filter:images';
-                break;
-            case 'video':
-                $query = $query . ' ' . 'filter:videos';
-                break;
-            default:
-                break;
+        if ($request['image']) {
+            $query = $query . ' ' . 'filter:images';
         }
-        $include_retweet = $request['include_retweet'];
-        switch ($include_retweet) {
-            case 'on':
-                $query = $query . ' ' . 'include:retweets';
-                break;
-            case 'off':
-                $query = $query . ' ' . 'exclude:retweets';
-                break;
-            default:
-                break;
+        if ($request['video']) {
+            $query = $query . ' ' . 'filter:videos';
+        }
+        if ($request['exclude_retweet']) {
+            $query = $query . ' ' . 'exclude:retweets';
+        }
+        if ($request['exclude_reply']) {
+            $query = $query . ' ' . 'exclude:replies';
         }
         if (!is_null($request['favorite_num'])) {
-            $query = $query . 'min_faves:' . $request['favorite_num'];
+            $query = $query . ' ' . 'min_faves:' . $request['favorite_num'];
         }
         if (!is_null($request['retweet_num'])) {
-            $query = $query . 'min_retweets:' . $request['retweet_num'];
+            $query = $query . ' ' . 'min_retweets:' . $request['retweet_num'];
         }
+        
         $result = $this->tweetSearch->getTweets($query);
         return view('twitter', ["result" => $result->statuses]);
     }

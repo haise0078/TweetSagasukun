@@ -1,6 +1,12 @@
 @push('css')
-    <link href="{{ asset('css/tweet_search.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/tweetSearch.css') }}" rel="stylesheet">
 @endpush
+
+<!-- コンポーネントの配置 -->
+<div id="app">
+        <sample-component></sample-component>
+</div>
+
 
 <div class="tweet_search">
     検索フォーム

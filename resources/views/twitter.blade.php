@@ -2,7 +2,11 @@
 
 @section('content')
 
-@include('components/tweetSearch')
+<!-- コンポーネントの配置 -->
+<div id="app">
+        <tweet-search-component></TweetSearch-component>
+</div>
+
 
 @push('css')
     <link href="{{ asset('css/tweet.css') }}" rel="stylesheet">

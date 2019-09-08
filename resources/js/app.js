@@ -27,6 +27,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+// 追加
+Vue.component('tweet-search-component', require('./components/TweetSearchComponent.vue').default);
+
 const app = new Vue({
     el: '#app',
 });
