@@ -1767,6 +1767,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1782,39 +1786,44 @@ __webpack_require__.r(__webpack_exports__);
         favorite_num: 0,
         retweet_num: 0
       },
-      termsName: '保存条件1',
+      termsName: '',
       selectedTerm: '',
-      savedTerms: [{
-        id: 0,
-        name: ''
-      }]
+      savedTerms: [],
+      error: ''
     };
   },
   mounted: function mounted() {
-    if (localStorage.getItem(this.termsName)) {
-      this.terms = JSON.parse(localStorage.getItem(this.termsName));
-      console.log(localStorage.getItem(this.termsName));
+    if (localStorage.getItem('savedTerms') !== null) {
+      // ローカルストレージの整合性確認（savedTermsの条件が存在しているか）
+      JSON.parse(localStorage.getItem('savedTerms')).forEach(function (element) {
+        if (localStorage.getItem(element.name) !== null) {
+          this.savedTerms.push(element);
+        } else {
+          this.error = '【ERROR】ローカルストレージから条件「' + element.name + '」が削除されています';
+        }
+      }.bind(this));
     }
-
-    if (localStorage.savedTerms) {
-      this.savedTerms = JSON.parse(localStorage.getItem('savedTerms'));
-      console.log(this.savedTerms);
+  },
+  watch: {
+    selectedTerm: function selectedTerm() {
+      this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
+    },
+    savedTerms: function savedTerms() {
+      localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
     }
   },
   methods: {
     saveTerms: function saveTerms() {
-      localStorage.setItem(this.termsName, JSON.stringify(this.terms));
-      console.log(this.termsName);
-      this.savedTerms.push({
-        id: this.savedTerms.length,
-        name: this.termsName
-      }); // this.$set(this.savedTerms, this.savedTerms.length, this.termsName);
-
-      localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
-      console.log(this.savedTerms.length);
-    },
-    selectTerm: function selectTerm() {
-      this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
+      if (this.termsName.length != 0) {
+        localStorage.setItem(this.termsName, JSON.stringify(this.terms));
+        this.savedTerms.push({
+          id: this.savedTerms.length + 1,
+          name: this.termsName
+        });
+        localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+      } else {
+        alert('条件名を入力してください');
+      }
     }
   }
 });
@@ -38134,8 +38143,6 @@ var render = function() {
       _c("br")
     ]),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.saveTerms } }, [_vm._v("検索条件を保存")]),
-    _vm._v(" "),
     _c("input", {
       directives: [
         {
@@ -38145,7 +38152,7 @@ var render = function() {
           expression: "termsName"
         }
       ],
-      attrs: { type: "text" },
+      attrs: { type: "text", placeholder: "条件の名前を入力" },
       domProps: { value: _vm.termsName },
       on: {
         input: function($event) {
@@ -38157,9 +38164,9 @@ var render = function() {
       }
     }),
     _vm._v(" "),
-    _c("br"),
+    _c("button", { on: { click: _vm.saveTerms } }, [_vm._v("条件を保存")]),
     _vm._v(" "),
-    _c("button", { on: { click: _vm.selectTerm } }, [_vm._v("検索条件を反映")]),
+    _c("br"),
     _vm._v(" "),
     _c(
       "select",
@@ -38195,12 +38202,24 @@ var render = function() {
         _vm._v(" "),
         _vm._l(_vm.savedTerms, function(savedTerm) {
           return _c("option", { key: savedTerm.id }, [
-            _vm._v("\n            " + _vm._s(savedTerm.name) + "\n        ")
+            savedTerm.id !== 0
+              ? _c("p", [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(savedTerm.name) +
+                      "\n            "
+                  )
+                ])
+              : _vm._e()
           ])
         })
       ],
       2
-    )
+    ),
+    _vm._v(" "),
+    _vm.error.length > 0
+      ? _c("p", [_vm._v("\n        " + _vm._s(_vm.error) + "\n    ")])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []

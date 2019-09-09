@@ -22,16 +22,20 @@
             <input type="submit" value="検索">
             <br>
         </form>
-        <button @click='saveTerms'>検索条件を保存</button>
-        <input type="text" v-model="termsName">
+        <input type="text" v-model="termsName" placeholder="条件の名前を入力">
+        <button @click='saveTerms'>条件を保存</button>
         <br>
-        <button @click='selectTerm'>検索条件を反映</button>
         <select v-model="selectedTerm">
             <option disabled value="">条件を選択</option>
             <option v-for="savedTerm in savedTerms" v-bind:key="savedTerm.id">
-                {{ savedTerm.name }}
+                <p v-if="savedTerm.id!==0">
+                    {{ savedTerm.name }}
+                </p>
             </option>
         </select>
+        <p v-if="error.length > 0">
+            {{ error }}
+        </p>
     </div>
 </template>
 
@@ -51,34 +55,43 @@ export default {
                 favorite_num: 0,
                 retweet_num: 0,
             },
-            termsName: '保存条件1',
+            termsName: '',
             selectedTerm: '',
-            savedTerms: [{id: 0, name: ''}],
+            savedTerms: [],
+            error: '',
         }
     },
-     mounted() {
-        if (localStorage.getItem(this.termsName)) {
-            this.terms = JSON.parse(localStorage.getItem(this.termsName));
-            console.log(localStorage.getItem(this.termsName));
+    mounted() {
+        if (localStorage.getItem('savedTerms') !== null) {
+            // ローカルストレージの整合性確認（savedTermsの条件が存在しているか）
+            JSON.parse(localStorage.getItem('savedTerms')).forEach(function(element){
+                if (localStorage.getItem(element.name) !== null) {
+                    this.savedTerms.push(element);
+                } else {
+                    this.error = '【ERROR】ローカルストレージから条件「' + element.name + '」が削除されています';
+                }
+            }.bind(this));
         }
-        if (localStorage.savedTerms) {
-            this.savedTerms = JSON.parse(localStorage.getItem('savedTerms'));
-            console.log(this.savedTerms);
+    },
+    watch: {
+        selectedTerm: function(){
+            this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
+        },
+        savedTerms: function(){
+            localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
         }
     },
     methods: {
         saveTerms(){
-            localStorage.setItem(this.termsName, JSON.stringify(this.terms));
-            console.log(this.termsName);
-            this.savedTerms.push({id: this.savedTerms.length, name: this.termsName});
-            // this.$set(this.savedTerms, this.savedTerms.length, this.termsName);
-            localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
-            console.log(this.savedTerms.length);
+            if (this.termsName.length != 0) {
+                localStorage.setItem(this.termsName, JSON.stringify(this.terms));
+                this.savedTerms.push({id: this.savedTerms.length + 1, name: this.termsName});
+                localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+            } else {
+                alert('条件名を入力してください');
+            }
         },
-        selectTerm(){
-            this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
-        }
-    }        
+    }
 }
 </script>
 

@@ -11,10 +11,10 @@ class TweetController extends Controller
 
     public function __construct(TweetSearch $tweetSearch){
         $this->tweetSearch = $tweetSearch;
+        $this->middleware('auth');
     }
 
     public function search(Request $request){
-        // dd($request);
         $query =  '';
         if (!is_null($request['keyword'])) {
             $keyword = $request['keyword'];
@@ -56,8 +56,7 @@ class TweetController extends Controller
         if (!is_null($request['retweet_num'])) {
             $query = $query . ' ' . 'min_retweets:' . $request['retweet_num'];
         }
-        
-        $result = $this->tweetSearch->getTweets($query);
+        $result = $this->tweetSearch->getTweets($query);;
         return view('twitter', ["result" => $result->statuses]);
     }
 }
