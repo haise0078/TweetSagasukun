@@ -29,7 +29,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 // 追加
 Vue.component('tweet-search-component', require('./components/TweetSearchComponent.vue').default);
+Vue.component('tweet-show-component', require('./components/TweetShowComponent.vue').default);
 
-const app = new Vue({
-    el: '#app',
+const tweet_search = new Vue({
+    el: '#tweet-search',
+});
+
+const tweet_show = new Vue({
+    el: '#tweet-show',
 });

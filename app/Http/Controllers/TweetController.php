@@ -56,7 +56,8 @@ class TweetController extends Controller
         if (!is_null($request['retweet_num'])) {
             $query = $query . ' ' . 'min_retweets:' . $request['retweet_num'];
         }
-        $result = $this->tweetSearch->getTweets($query);;
-        return view('twitter', ["result" => $result->statuses]);
+        $result = $this->tweetSearch->getTweets($query);
+        $result = json_encode($result->statuses);
+        return view('twitter', ["result" => $result]);
     }
 }

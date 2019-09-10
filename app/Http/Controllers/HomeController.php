@@ -30,7 +30,8 @@ class HomeController extends Controller
             return redirect('twitterSignIn');
         } else {
             $result = $this->tweetSearch->getTweets('飯テロ');
-            return view('twitter', ["result" => $result->statuses]);
+            $result = json_encode($result->statuses);
+            return view('twitter', ["result" => $result]);
         }
     }
 }
