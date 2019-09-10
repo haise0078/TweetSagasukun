@@ -38314,11 +38314,26 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("h6", { staticClass: "d-inline text-secondary" }, [
-                  _vm._v(_vm._s(tweet.created_at))
+                  _vm._v(
+                    _vm._s(
+                      new Date(tweet.created_at).getFullYear().toString() +
+                        "/" +
+                        new Date(tweet.created_at).getMonth().toString() +
+                        "/" +
+                        new Date(tweet.created_at).getDate().toString()
+                    )
+                  )
                 ]),
                 _vm._v(" "),
                 _c("p", { staticClass: "mt-3 mb-0" }, [
-                  _vm._v(_vm._s(tweet.full_text))
+                  _vm._v(
+                    _vm._s(
+                      tweet.full_text.replace(
+                        /https:\/\/t.co\/[a-zA-Z0-9]*/,
+                        ""
+                      )
+                    )
+                  )
                 ]),
                 _vm._v(" "),
                 tweet.entities.media !== null &&

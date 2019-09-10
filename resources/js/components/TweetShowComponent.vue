@@ -6,8 +6,8 @@
                     <img :src="tweet.user.profile_image_url_https" class="rounded-circle mr-4">
                     <div class="media-body">
                         <h5 class="d-inline mr-3"><strong>{{ tweet.user.name }}</strong></h5>
-                        <h6 class="d-inline text-secondary">{{ tweet.created_at }}</h6>
-                        <p class="mt-3 mb-0">{{ tweet.full_text }}</p>
+                        <h6 class="d-inline text-secondary">{{ ( (new Date(tweet.created_at)).getFullYear().toString() + "/" + (new Date(tweet.created_at)).getMonth().toString() + "/" + (new Date(tweet.created_at)).getDate().toString() )}}</h6>
+                        <p class="mt-3 mb-0">{{ (tweet.full_text).replace(/https:\/\/t.co\/[a-zA-Z0-9]*/, '') }}</p>
                         <div v-if="tweet.entities.media!==null && tweet.entities.media!==undefined">
 
                         </div>
