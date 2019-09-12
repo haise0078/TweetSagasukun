@@ -17,7 +17,7 @@
 </div>
 
 <div id="tweet-show">
-    <tweet-show-component v-bind:result="{{ $result }}"></tweet-show-component>
+    <tweets-show-component v-bind:result="{{ $result }}"></tweets-show-component>
 </div>
 
 {{-- <div>
