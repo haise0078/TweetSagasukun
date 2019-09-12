@@ -20,7 +20,7 @@
             <div class="d-flex flex-row justify-content-end">
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
-                <div class="mr-5"><i class="far fa-heart text-secondary"></i></div>
+                <div class="mr-5"><button v-show="!saved" @click="toggleSaved()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click="toggleSaved()"><i class="fas fa-bookmark" ></i></button></div>
             </div>
         </div>
     </div>
@@ -28,18 +28,23 @@
 
 <script>
 export default {
-    props: ["result"],
-    computed: {
-        resultObject: function(){
-            console.log(this.result);
-            return JSON.parse(this.result);
+    data: function(){
+        return{
+            saved: false,
         }
+    },
+    props: {
+        tweet:Object
     },
     methods: {
         saveTweet: function(){
             axios.post('/tweet/save',{
                 tweet
             })
+        },
+        toggleSaved: function(event){
+            this.saved = !this.saved;
+            console.log("get");
         }
     }
 }

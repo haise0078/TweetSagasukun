@@ -2,12 +2,6 @@
 
 @section('content')
 
-<!-- コンポーネントの配置 -->
-<div id="app">
-    <tweet-search-component></TweetSearch-component>
-</div>
-
-
 @push('css')
     <link href="{{ asset('css/tweet.css') }}" rel="stylesheet">
 @endpush
@@ -16,7 +10,7 @@
     <tweet-search-component></TweetSearch-component>
 </div>
 
-<div id="tweet-show">
+<div id="tweets-show">
     <tweets-show-component v-bind:result="{{ $result }}"></tweets-show-component>
 </div>
 
