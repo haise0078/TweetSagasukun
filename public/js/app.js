@@ -1867,10 +1867,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      saved: false
+      saved: false,
+      message: "default"
     };
   },
   props: {
@@ -1882,10 +1884,13 @@ __webpack_require__.r(__webpack_exports__);
         tweet: tweet
       });
     },
-    toggleSaved: function toggleSaved(event) {
+    toggleSaved: function toggleSaved() {
       this.saved = !this.saved;
       console.log("get");
     }
+  },
+  mounted: function mounted() {
+    console.log(this.message);
   }
 });
 
@@ -1908,9 +1913,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["result"]
+  props: ["result"],
+  data: function data() {
+    return {
+      message: "default"
+    };
+  }
 });
 
 /***/ }),
@@ -38413,7 +38422,8 @@ var render = function() {
               ],
               on: {
                 click: function($event) {
-                  return _vm.toggleSaved()
+                  _vm.toggleSaved()
+                  _vm.saveTweet()
                 }
               }
             },
@@ -38432,14 +38442,37 @@ var render = function() {
               ],
               on: {
                 click: function($event) {
-                  return _vm.toggleSaved()
+                  _vm.toggleSaved()
+                  _vm.saveTweet()
                 }
               }
             },
             [_c("i", { staticClass: "fas fa-bookmark" })]
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.message,
+            expression: "message"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.message },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.message = $event.target.value
+          }
+        }
+      }),
+      _vm._v(_vm._s(_vm.message) + "\n    ")
     ])
   ])
 }
@@ -38465,19 +38498,39 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { attrs: { id: "tweet-show" } },
-      _vm._l(_vm.result, function(tweet, index) {
+  return _c(
+    "div",
+    [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.message,
+            expression: "message"
+          }
+        ],
+        attrs: { type: "text" },
+        domProps: { value: _vm.message },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.message = $event.target.value
+          }
+        }
+      }),
+      _vm._v(_vm._s(_vm.message) + "\n        "),
+      _vm._l(_vm.result, function(tweet) {
         return _c("tweet-show-component", {
-          key: tweet[index],
+          key: tweet.id,
           attrs: { tweet: tweet }
         })
-      }),
-      1
-    )
-  ])
+      })
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -50663,9 +50716,6 @@ var tweet_search = new Vue({
 });
 var tweets_show = new Vue({
   el: '#tweets-show'
-});
-var tweet_show = new Vue({
-  el: '#tweet-show'
 });
 
 /***/ }),

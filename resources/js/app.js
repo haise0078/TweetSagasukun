@@ -40,7 +40,3 @@ const tweet_search = new Vue({
 const tweets_show = new Vue({
     el: '#tweets-show',
 });
-
-const tweet_show = new Vue({
-    el: '#tweet-show',
-});

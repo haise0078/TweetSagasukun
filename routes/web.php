@@ -20,3 +20,4 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('/tweet/search', 'TweetController@search');
+Route::post('/tweet/save', 'TweetController@save');

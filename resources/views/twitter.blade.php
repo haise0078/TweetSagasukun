@@ -7,7 +7,7 @@
 @endpush
 
 <div id="tweet-search">
-    <tweet-search-component></TweetSearch-component>
+    <tweet-search-component></tweet-search-component>
 </div>
 
 <div id="tweets-show">
