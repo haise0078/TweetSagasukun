@@ -10,6 +10,10 @@ class Tweet extends Model
         'id',
     ];
 
+    protected $casts = [
+        'tweet_json' => 'json',
+    ];
+
     public function user(){
         return $this->belongsTo('App\User');
     }

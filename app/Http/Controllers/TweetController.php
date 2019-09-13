@@ -1,16 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\TweetSearch;
+use App\Services\TweetSave;
+
 
 class TweetController extends Controller
 {
     protected $tweetSearch;
+    protected $tweetSave;
 
-    public function __construct(TweetSearch $tweetSearch){
+    public function __construct(TweetSearch $tweetSearch, TweetSave $tweetSave){
         $this->tweetSearch = $tweetSearch;
+        $this->tweetSave = $tweetSave;
         $this->middleware('auth');
     }
 
@@ -22,8 +25,8 @@ class TweetController extends Controller
         }
         if (!is_null($request['exclude_keyword'])) {
             $exclude_keywords = explode(' ', $request['exclude_keyword']);
-            rray_walk($exclude_keywords, function(&$val){
-                return '-'. $val;
+            array_walk($exclude_keywords, function(&$val){
+                $val = '-'. $val;
             });
             foreach ($exclude_keywords as $exclude_keyword) {
                 $query = $query . ' ' . $exclude_keyword;
@@ -32,7 +35,7 @@ class TweetController extends Controller
         if (!is_null($request['hash_tag'])) {
             $hash_tags = explode(' ', $request['hash_tag']);
             array_walk($hash_tags, function(&$val){
-                return '#'. $val;
+                $val = '#'. $val;
             });
             foreach ($hash_tags as $hash_tag) {
                 $query = $query . ' ' . $hash_tag;
@@ -59,5 +62,9 @@ class TweetController extends Controller
         $result = $this->tweetSearch->getTweets($query);
         $result = json_encode($result->statuses);
         return view('twitter', ["result" => $result]);
+    }
+    public function save(Request $request){
+        $tweet = $request->input('tweet');
+        return $this->tweetSave->saveTweet($tweet);
     }
 }

@@ -31,6 +31,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('tweet-search-component', require('./components/TweetSearchComponent.vue').default);
 Vue.component('tweets-show-component', require('./components/TweetsShowComponent.vue').default);
 Vue.component('tweet-show-component', require('./components/TweetShowComponent.vue').default);
+Vue.component('favorites-show-component', require('./components/FavoritesShowComponent.vue').default);
 
 const tweet_search = new Vue({
     el: '#tweet-search',

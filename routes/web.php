@@ -12,6 +12,7 @@
 */
 
 // 認証関連
+// TODO: ミドルウェア設定、整理
 Route::get('twitterSignIn', 'Auth\TwitterSignInController@register');
 Route::get('registerCallBack', 'Auth\TwitterSignInController@callback');
 Auth::routes();
@@ -21,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeController@index')->name('home');
 Route::post('/tweet/search', 'TweetController@search');
 Route::post('/tweet/save', 'TweetController@save');
+Route::get('/favorite', 'FavoriteTweetController@favorite');

@@ -5,7 +5,7 @@
                 <img :src="tweet.user.profile_image_url_https" class="rounded-circle mr-4">
                 <div class="media-body">
                     <h5 class="d-inline mr-3"><strong>{{ tweet.user.name }}</strong></h5>
-                    <h6 class="d-inline text-secondary">{{ ( (new Date(tweet.created_at)).getFullYear().toString() + "/" + (new Date(tweet.created_at)).getMonth().toString() + "/" + (new Date(tweet.created_at)).getDate().toString() )}}</h6>
+                    <h6 class="d-inline text-secondary">{{ ( (new Date(tweet.created_at)).getFullYear().toString() + "/" + ((new Date(tweet.created_at)).getMonth()+ 1).toString() + "/" + (new Date(tweet.created_at)).getDate().toString() )}}</h6>
                     <p class="mt-3 mb-0">{{ (tweet.full_text).replace(/https:\/\/t.co\/[a-zA-Z0-9]*/, '') }}</p>
                     <div v-if="tweet.entities.media!==null && tweet.entities.media!==undefined">
 
@@ -20,7 +20,7 @@
             <div class="d-flex flex-row justify-content-end">
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
-                <div class="mr-5"><button v-show="!saved" @click="toggleSaved(); saveTweet()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click="toggleSaved(); saveTweet()"><i class="fas fa-bookmark" ></i></button></div>
+                <div class="mr-5"><button v-show="!saved" @click.once="saveTweet()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click.once="saveTweet()"><i class="fas fa-bookmark" ></i></button></div>
             </div>
             <input type="text" v-model="message">{{ message }}
         </div>
@@ -40,14 +40,27 @@ export default {
     },
     methods: {
         saveTweet: function(){
-            axios.post('/tweet/save',{
-                tweet
-            })
+            axios.post('/tweet/save/', {
+                tweet: this.tweet
+                }).then(res=>{
+                    if(res.data === 'save_successed'){
+                        this.saved = !this.saved;    
+                    }
+                }
+                ).catch(function(error){
+                if (error.response) {
+                    console.log(error.request);
+                    console.log(error.response.data);
+                    console.log(error.response.status);      // 例：400
+                    console.log(error.response.statusText);  // Bad Request
+                    console.log(error.response.headers);
+                } else if (error.request) {
+                    console.log(error.request);
+                } else {
+                    console.log('Error', error.message);
+                }
+            });
         },
-        toggleSaved: function(){
-            this.saved = !this.saved;
-            console.log("get");
-        }
     },
     mounted() {
         console.log(this.message);

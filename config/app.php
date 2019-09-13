@@ -177,6 +177,7 @@ return [
         App\Providers\TwitterServiceProvider::class,
         App\Providers\TwitterConnectionProvider::class,
         App\Providers\TweetSearchProvider::class,
+        App\Providers\TweetSaveProvider::class,
 
     ],
 
@@ -230,6 +231,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Twitter' => App\Facades\Twitter::class,
         'TwitterConnection' => App\Facades\TwitterConnection::class,
+        'TweetSearch' => App\Facades\TweetSearch::class,
+        'TweetSave' => App\Facades\TweetSave::class,
     ],
 
 ];
