@@ -1880,13 +1880,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     saveTweet: function saveTweet() {
-      axios.post('/tweet/save', {
-        tweet: tweet
+      axios.post('/tweet/save/' + this.tweet, this.tweet).then(function (res) {
+        return console.log(res);
       });
     },
     toggleSaved: function toggleSaved() {
       this.saved = !this.saved;
-      console.log("get");
     }
   },
   mounted: function mounted() {
@@ -38421,7 +38420,7 @@ var render = function() {
                 }
               ],
               on: {
-                click: function($event) {
+                "~click": function($event) {
                   _vm.toggleSaved()
                   _vm.saveTweet()
                 }
@@ -38441,7 +38440,7 @@ var render = function() {
                 }
               ],
               on: {
-                click: function($event) {
+                "~click": function($event) {
                   _vm.toggleSaved()
                   _vm.saveTweet()
                 }

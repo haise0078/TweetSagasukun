@@ -4,13 +4,12 @@ namespace App\Services;
 use Illuminate\Support\Facades\Auth;
 
 class TweetSave {
-    public function saveTweet(){
+    public function saveTweet($tweet){
         if ( (Auth::user()->twitterInfomation())->get()->isEmpty()){
-            return redirect('twitterSignIn');
+            return false;
         } else {
-            $connection = \TwitterConnection::makeConnection();
-            $result = $connection->get("search/tweets", ["q" => $query, "count" => 50, "tweet_mode" => "extended", "include_entities" => true]);
-            return $result;
+            
+            return true;
         }
     }
 }

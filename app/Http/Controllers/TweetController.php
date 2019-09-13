@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\TweetSearch;
+use App\Services\TweetSave;
 
 class TweetController extends Controller
 {
     protected $tweetSearch;
+    protected $tweetSave;
 
-    public function __construct(TweetSearch $tweetSearch){
+    public function __construct(TweetSearch $tweetSearch, TweetSave $tweetSave){
         $this->tweetSearch = $tweetSearch;
+        $this->tweetSave = $tweetSave;
         $this->middleware('auth');
     }
 
@@ -59,5 +62,8 @@ class TweetController extends Controller
         $result = $this->tweetSearch->getTweets($query);
         $result = json_encode($result->statuses);
         return view('twitter', ["result" => $result]);
+    }
+    public function save($tweet){
+        return $this->tweetSave->saveTweet($tweet);
     }
 }

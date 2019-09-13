@@ -20,7 +20,7 @@
             <div class="d-flex flex-row justify-content-end">
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
-                <div class="mr-5"><button v-show="!saved" @click="toggleSaved(); saveTweet()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click="toggleSaved(); saveTweet()"><i class="fas fa-bookmark" ></i></button></div>
+                <div class="mr-5"><button v-show="!saved" @click.once="toggleSaved(); saveTweet()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click.once="toggleSaved(); saveTweet()"><i class="fas fa-bookmark" ></i></button></div>
             </div>
             <input type="text" v-model="message">{{ message }}
         </div>
@@ -40,13 +40,11 @@ export default {
     },
     methods: {
         saveTweet: function(){
-            axios.post('/tweet/save',{
-                tweet
-            })
+            axios.post('/tweet/save/' + this.tweet, this.tweet).then(res=>
+            console.log(res));
         },
         toggleSaved: function(){
             this.saved = !this.saved;
-            console.log("get");
         }
     },
     mounted() {
