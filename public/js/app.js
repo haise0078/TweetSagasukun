@@ -1749,6 +1749,47 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      message: "default",
+      open_form: false,
+      result: {}
+    };
+  },
+  methods: {
+    toggleForm: function toggleForm() {
+      this.open_form = !this.open_form;
+    },
+    getResult: function getResult(result) {
+      this.result = result;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetSearchComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TweetSearchComponent.vue?vue&type=script&lang=js& ***!
@@ -1758,6 +1799,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -1814,13 +1857,15 @@ __webpack_require__.r(__webpack_exports__);
         favorite_num: 0,
         retweet_num: 0
       },
+      query: '',
       termsName: '',
       selectedTerm: '',
       savedTerms: [],
-      error: ''
+      error: '',
+      result: {}
     };
   },
-  mounted: function mounted() {
+  created: function created() {
     if (localStorage.getItem('savedTerms') !== null) {
       // ローカルストレージの整合性確認（savedTermsの条件が存在しているか）
       JSON.parse(localStorage.getItem('savedTerms')).forEach(function (element) {
@@ -1830,6 +1875,12 @@ __webpack_require__.r(__webpack_exports__);
           this.error = '【ERROR】ローカルストレージから条件「' + element.name + '」が削除されています';
         }
       }.bind(this));
+    } // 初期クエリ発行
+
+
+    if (this.savedTerms.length > 0) {
+      this.terms = JSON.parse(localStorage.getItem(this.savedTerms[0]));
+      this.searchTweets();
     }
   },
   watch: {
@@ -1841,6 +1892,34 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    searchTweets: function searchTweets() {
+      var _this = this;
+
+      this.createQuery();
+      axios.post('/tweet/search', {
+        query: this.query
+      }).then(function (res) {
+        if (_typeof(res.data) === "object") {
+          _this.result = res.data;
+        }
+
+        console.log(res.data);
+        console.log(_typeof(res.data));
+
+        _this.$emit('searched', _this.result);
+      })["catch"](function (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.statusText);
+          console.log(error.response.headers);
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log('Error', error.message);
+        }
+      });
+    },
     saveTerms: function saveTerms() {
       if (this.termsName.length != 0) {
         localStorage.setItem(this.termsName, JSON.stringify(this.terms));
@@ -1852,6 +1931,62 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         alert('条件名を入力してください');
       }
+    },
+    createQuery: function createQuery() {
+      var query_buffer = '';
+
+      if (this.terms.keyword.length > 0) {
+        query_buffer += this.terms.keyword;
+      }
+
+      if (this.terms.exclude_keyword.length > 0) {
+        var temp = this.terms.exclude_keyword.split(' ');
+        var temp2 = temp.map(function (element) {
+          return '-' + element;
+        });
+        temp2.forEach(function (element) {
+          query_buffer = query_buffer + ' ' + element;
+        });
+      }
+
+      if (this.terms.hash_tag.length > 0) {
+        var _temp = this.terms.exclude_keyword.split(' ');
+
+        var _temp2 = _temp.map(function (element) {
+          return '#' + element;
+        });
+
+        _temp2.forEach(function (element) {
+          query_buffer = query_buffer + ' ' + element;
+        });
+      }
+
+      if (this.terms.image) {
+        query_buffer = query_buffer + ' ' + 'filter:images';
+      }
+
+      if (this.terms.video) {
+        query_buffer = query_buffer + ' ' + 'filter:videos';
+      }
+
+      if (this.terms.exclude_retweet) {
+        query_buffer = query_buffer + ' ' + 'exclude:retweets';
+      }
+
+      if (this.terms.exclude_reply) {
+        query_buffer = query_buffer + ' ' + 'exclude:replies';
+      }
+
+      if (this.terms.favorite_num > 0) {
+        query_buffer = query_buffer + ' ' + 'min_faves:' + this.terms.favorite_num;
+      }
+
+      if (this.terms.retweet_num > 0) {
+        query_buffer = query_buffer + ' ' + 'min_retweets:' + this.terms.retweet_num;
+      }
+
+      this.query = query_buffer;
+      console.log(this.query);
     }
   }
 });
@@ -1899,12 +2034,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      saved: false,
-      message: "default"
+      saved: false
     };
   },
   props: {
-    tweet: Object
+    tweet: Object,
+    message: String
   },
   methods: {
     saveTweet: function saveTweet() {
@@ -1918,7 +2053,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          console.log(error.request);
           console.log(error.response.data);
           console.log(error.response.status); // 例：400
 
@@ -37995,6 +38129,90 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", [
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.open_form,
+                expression: "!open_form"
+              }
+            ],
+            staticClass: "open_form",
+            on: { click: _vm.toggleForm }
+          },
+          [_c("i", { staticClass: "fas fa-search-plus" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.open_form,
+                expression: "open_form"
+              }
+            ],
+            staticClass: "close_form",
+            on: { click: _vm.toggleForm }
+          },
+          [_c("i", { staticClass: "fas fa-search-minus" })]
+        )
+      ]),
+      _vm._v(" "),
+      _c("tweet-search-component", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.open_form,
+            expression: "open_form"
+          }
+        ],
+        attrs: { result: _vm.result },
+        on: { searched: _vm.getResult }
+      }),
+      _vm._v(" "),
+      _vm._l(_vm.result, function(tweet) {
+        return _c("tweet-show-component", {
+          key: tweet.id,
+          attrs: { tweet: tweet, message: _vm.message }
+        })
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetSearchComponent.vue?vue&type=template&id=7d45646f&scoped=true&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TweetSearchComponent.vue?vue&type=template&id=7d45646f&scoped=true& ***!
@@ -38013,329 +38231,344 @@ var render = function() {
   return _c("div", { staticClass: "tweet_search" }, [
     _c("h2", { staticClass: "title" }, [_vm._v("Search tweets")]),
     _vm._v(" "),
-    _c("form", { attrs: { action: "/tweet/search", method: "POST" } }, [
-      _c("input", {
-        attrs: { type: "hidden", name: "_token" },
-        domProps: { value: _vm.csrf }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.keyword,
-            expression: "terms.keyword"
-          }
-        ],
-        attrs: {
-          type: "text",
-          name: "keyword",
-          placeholder: "キーワードを入力"
-        },
-        domProps: { value: _vm.terms.keyword },
+    _c(
+      "form",
+      {
         on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.terms, "keyword", $event.target.value)
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.searchTweets($event)
           }
         }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.hash_tag,
-            expression: "terms.hash_tag"
-          }
-        ],
-        attrs: {
-          type: "text",
-          name: "hash_tag",
-          placeholder: "ハッシュタグを入力"
-        },
-        domProps: { value: _vm.terms.hash_tag },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+      },
+      [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.keyword,
+              expression: "terms.keyword"
             }
-            _vm.$set(_vm.terms, "hash_tag", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.exclude_keyword,
-            expression: "terms.exclude_keyword"
-          }
-        ],
-        attrs: {
-          type: "text",
-          name: "exclude_keyword",
-          placeholder: "除外ワードを入力"
-        },
-        domProps: { value: _vm.terms.exclude_keyword },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.$set(_vm.terms, "exclude_keyword", $event.target.value)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("画像を含む ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.image,
-            expression: "terms.image"
-          }
-        ],
-        attrs: { type: "checkbox", name: "image" },
-        domProps: {
-          checked: Array.isArray(_vm.terms.image)
-            ? _vm._i(_vm.terms.image, null) > -1
-            : _vm.terms.image
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.terms.image,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
-              } else {
-                $$i > -1 &&
-                  _vm.$set(
-                    _vm.terms,
-                    "image",
-                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                  )
+          ],
+          attrs: {
+            type: "text",
+            name: "keyword",
+            placeholder: "キーワードを入力"
+          },
+          domProps: { value: _vm.terms.keyword },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            } else {
-              _vm.$set(_vm.terms, "image", $$c)
+              _vm.$set(_vm.terms, "keyword", $event.target.value)
             }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("動画を含む ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.video,
-            expression: "terms.video"
-          }
-        ],
-        attrs: { type: "checkbox", name: "video" },
-        domProps: {
-          checked: Array.isArray(_vm.terms.video)
-            ? _vm._i(_vm.terms.video, null) > -1
-            : _vm.terms.video
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.terms.video,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
-              } else {
-                $$i > -1 &&
-                  _vm.$set(
-                    _vm.terms,
-                    "video",
-                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                  )
+        }),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.hash_tag,
+              expression: "terms.hash_tag"
+            }
+          ],
+          attrs: {
+            type: "text",
+            name: "hash_tag",
+            placeholder: "ハッシュタグを入力"
+          },
+          domProps: { value: _vm.terms.hash_tag },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            } else {
-              _vm.$set(_vm.terms, "video", $$c)
+              _vm.$set(_vm.terms, "hash_tag", $event.target.value)
             }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("リツイートを除外 ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.exclude_retweet,
-            expression: "terms.exclude_retweet"
-          }
-        ],
-        attrs: {
-          type: "checkbox",
-          name: "exclude_retweet",
-          checked: "checked"
-        },
-        domProps: {
-          checked: Array.isArray(_vm.terms.exclude_retweet)
-            ? _vm._i(_vm.terms.exclude_retweet, null) > -1
-            : _vm.terms.exclude_retweet
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.terms.exclude_retweet,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 &&
-                  _vm.$set(_vm.terms, "exclude_retweet", $$a.concat([$$v]))
-              } else {
-                $$i > -1 &&
-                  _vm.$set(
-                    _vm.terms,
-                    "exclude_retweet",
-                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                  )
+        }),
+        _vm._v(" "),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.exclude_keyword,
+              expression: "terms.exclude_keyword"
+            }
+          ],
+          attrs: {
+            type: "text",
+            name: "exclude_keyword",
+            placeholder: "除外ワードを入力"
+          },
+          domProps: { value: _vm.terms.exclude_keyword },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
               }
-            } else {
-              _vm.$set(_vm.terms, "exclude_retweet", $$c)
+              _vm.$set(_vm.terms, "exclude_keyword", $event.target.value)
             }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("リプライを除外 ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.exclude_reply,
-            expression: "terms.exclude_reply"
-          }
-        ],
-        attrs: { type: "checkbox", name: "exclude_reply", checked: "checked" },
-        domProps: {
-          checked: Array.isArray(_vm.terms.exclude_reply)
-            ? _vm._i(_vm.terms.exclude_reply, null) > -1
-            : _vm.terms.exclude_reply
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.terms.exclude_reply,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 &&
-                  _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("画像を含む ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.image,
+              expression: "terms.image"
+            }
+          ],
+          attrs: { type: "checkbox", name: "image" },
+          domProps: {
+            checked: Array.isArray(_vm.terms.image)
+              ? _vm._i(_vm.terms.image, null) > -1
+              : _vm.terms.image
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.terms.image,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.terms,
+                      "image",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
               } else {
-                $$i > -1 &&
-                  _vm.$set(
-                    _vm.terms,
-                    "exclude_reply",
-                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                  )
+                _vm.$set(_vm.terms, "image", $$c)
               }
-            } else {
-              _vm.$set(_vm.terms, "exclude_reply", $$c)
             }
           }
-        }
-      }),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("いいね数 ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.favorite_num,
-            expression: "terms.favorite_num"
-          }
-        ],
-        attrs: {
-          type: "text",
-          name: "favorite_num",
-          placeholder: "いいね数を指定"
-        },
-        domProps: { value: _vm.terms.favorite_num },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("動画を含む ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.video,
+              expression: "terms.video"
             }
-            _vm.$set(_vm.terms, "favorite_num", $event.target.value)
-          }
-        }
-      }),
-      _c("b", [_vm._v("以上")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("b", [_vm._v("リツイート数 ：")]),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.terms.retweet_num,
-            expression: "terms.retweet_num"
-          }
-        ],
-        attrs: {
-          type: "text",
-          name: "retweet_num",
-          placeholder: "リツイート数を指定"
-        },
-        domProps: { value: _vm.terms.retweet_num },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
+          ],
+          attrs: { type: "checkbox", name: "video" },
+          domProps: {
+            checked: Array.isArray(_vm.terms.video)
+              ? _vm._i(_vm.terms.video, null) > -1
+              : _vm.terms.video
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.terms.video,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.terms,
+                      "video",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
+              } else {
+                _vm.$set(_vm.terms, "video", $$c)
+              }
             }
-            _vm.$set(_vm.terms, "retweet_num", $event.target.value)
           }
-        }
-      }),
-      _c("b", [_vm._v("以上")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("input", { attrs: { type: "submit", value: "検索" } }),
-      _vm._v(" "),
-      _c("br")
-    ]),
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("リツイートを除外 ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.exclude_retweet,
+              expression: "terms.exclude_retweet"
+            }
+          ],
+          attrs: {
+            type: "checkbox",
+            name: "exclude_retweet",
+            checked: "checked"
+          },
+          domProps: {
+            checked: Array.isArray(_vm.terms.exclude_retweet)
+              ? _vm._i(_vm.terms.exclude_retweet, null) > -1
+              : _vm.terms.exclude_retweet
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.terms.exclude_retweet,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 &&
+                    _vm.$set(_vm.terms, "exclude_retweet", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.terms,
+                      "exclude_retweet",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
+              } else {
+                _vm.$set(_vm.terms, "exclude_retweet", $$c)
+              }
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("リプライを除外 ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.exclude_reply,
+              expression: "terms.exclude_reply"
+            }
+          ],
+          attrs: {
+            type: "checkbox",
+            name: "exclude_reply",
+            checked: "checked"
+          },
+          domProps: {
+            checked: Array.isArray(_vm.terms.exclude_reply)
+              ? _vm._i(_vm.terms.exclude_reply, null) > -1
+              : _vm.terms.exclude_reply
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.terms.exclude_reply,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 &&
+                    _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.terms,
+                      "exclude_reply",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
+              } else {
+                _vm.$set(_vm.terms, "exclude_reply", $$c)
+              }
+            }
+          }
+        }),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("いいね数 ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.favorite_num,
+              expression: "terms.favorite_num"
+            }
+          ],
+          attrs: {
+            type: "text",
+            name: "favorite_num",
+            placeholder: "いいね数を指定"
+          },
+          domProps: { value: _vm.terms.favorite_num },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.terms, "favorite_num", $event.target.value)
+            }
+          }
+        }),
+        _c("b", [_vm._v("以上")]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("b", [_vm._v("リツイート数 ：")]),
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.terms.retweet_num,
+              expression: "terms.retweet_num"
+            }
+          ],
+          attrs: {
+            type: "text",
+            name: "retweet_num",
+            placeholder: "リツイート数を指定"
+          },
+          domProps: { value: _vm.terms.retweet_num },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.terms, "retweet_num", $event.target.value)
+            }
+          }
+        }),
+        _c("b", [_vm._v("以上")]),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "submit", value: "検索" } }),
+        _vm._v(" "),
+        _c("br")
+      ]
+    ),
     _vm._v(" "),
     _c("input", {
       directives: [
@@ -38619,11 +38852,11 @@ var render = function() {
           }
         }
       }),
-      _vm._v(_vm._s(_vm.message) + "\n        "),
+      _vm._v(_vm._s(_vm.message) + "\n    "),
       _vm._l(_vm.result, function(tweet) {
         return _c("tweet-show-component", {
           key: tweet.id,
-          attrs: { tweet: tweet }
+          attrs: { tweet: tweet, message: _vm.message }
         })
       })
     ],
@@ -50806,15 +51039,13 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  */
 // 追加
 
+Vue.component('tweet-parent-component', __webpack_require__(/*! ./components/TweetParentComponent.vue */ "./resources/js/components/TweetParentComponent.vue")["default"]);
 Vue.component('tweet-search-component', __webpack_require__(/*! ./components/TweetSearchComponent.vue */ "./resources/js/components/TweetSearchComponent.vue")["default"]);
 Vue.component('tweets-show-component', __webpack_require__(/*! ./components/TweetsShowComponent.vue */ "./resources/js/components/TweetsShowComponent.vue")["default"]);
 Vue.component('tweet-show-component', __webpack_require__(/*! ./components/TweetShowComponent.vue */ "./resources/js/components/TweetShowComponent.vue")["default"]);
 Vue.component('favorites-show-component', __webpack_require__(/*! ./components/FavoritesShowComponent.vue */ "./resources/js/components/FavoritesShowComponent.vue")["default"]);
 var tweet_search = new Vue({
-  el: '#tweet-search'
-});
-var tweets_show = new Vue({
-  el: '#tweets-show'
+  el: '#app'
 });
 
 /***/ }),
@@ -51010,6 +51241,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoritesShowComponent_vue_vue_type_template_id_2d184514_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FavoritesShowComponent_vue_vue_type_template_id_2d184514_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/TweetParentComponent.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/TweetParentComponent.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true& */ "./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true&");
+/* harmony import */ var _TweetParentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TweetParentComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _TweetParentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5bb134ad",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TweetParentComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TweetParentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TweetParentComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetParentComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TweetParentComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TweetParentComponent.vue?vue&type=template&id=5bb134ad&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TweetParentComponent_vue_vue_type_template_id_5bb134ad_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

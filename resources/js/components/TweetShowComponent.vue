@@ -32,11 +32,11 @@ export default {
     data: function(){
         return{
             saved: false,
-            message: "default",
         }
     },
     props: {
-        tweet:Object
+        tweet:Object,
+        message:String,
     },
     methods: {
         saveTweet: function(){
@@ -49,7 +49,6 @@ export default {
                 }
                 ).catch(function(error){
                 if (error.response) {
-                    console.log(error.request);
                     console.log(error.response.data);
                     console.log(error.response.status);      // 例：400
                     console.log(error.response.statusText);  // Bad Request
