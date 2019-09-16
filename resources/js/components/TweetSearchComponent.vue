@@ -41,6 +41,9 @@
 
 <script>
 export default {
+    props: {
+        selectedTerm: String,
+    },
     data: function(){
         return {
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -57,35 +60,31 @@ export default {
             },
             query: '',
             termsName: '',
-            selectedTerm: '',
             savedTerms: [],
             error: '',
             result: {},
         }
     },
     created() {
-        if (localStorage.getItem('savedTerms') !== null) {
+        let savedTerms = JSON.parse(localStorage.getItem('savedTerms'));
+        if (savedTerms !== null) {
             // ローカルストレージの整合性確認（savedTermsの条件が存在しているか）
             JSON.parse(localStorage.getItem('savedTerms')).forEach(function(element){
                 if (localStorage.getItem(element.name) !== null) {
+                    console.log(element);
                     this.savedTerms.push(element);
                 } else {
                     this.error = '【ERROR】ローカルストレージから条件「' + element.name + '」が削除されています';
                 }
             }.bind(this));
-        }
-        // 初期クエリ発行
-        if (this.savedTerms.length > 0){
-            this.terms = JSON.parse(localStorage.getItem(this.savedTerms[0]));
-            this.searchTweets();
+            // 親コンポーネントと同期
+            this.$emit('saved', this.savedTerms);
         }
     },
     watch: {
         selectedTerm: function(){
             this.terms = JSON.parse(localStorage.getItem(this.selectedTerm));
-        },
-        savedTerms: function(){
-            localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+            this.searchTweets();
         },
     },
     methods: {
@@ -98,7 +97,6 @@ export default {
                     this.result = res.data;
                 }
                 console.log(res.data);
-                console.log(typeof(res.data));
                 this.$emit('searched', this.result);
             }).catch(function(error){
                 if (error.response) {
@@ -114,12 +112,20 @@ export default {
             });
         },
         saveTerms(){
-            if (this.termsName.length != 0) {
-                localStorage.setItem(this.termsName, JSON.stringify(this.terms));
-                this.savedTerms.push({id: this.savedTerms.length + 1, name: this.termsName});
-                localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+            if (this.termsName.length > 0) {
+                if (localStorage.getItem(this.termsName) !== null) {
+                    alert('条件名が重複しています');
+                    return;
+                } else {
+                    localStorage.setItem(this.termsName, JSON.stringify(this.terms));
+                    this.savedTerms.push({id: this.savedTerms.length + 1, name: this.termsName});
+                    localStorage.setItem('savedTerms', JSON.stringify(this.savedTerms));
+                    // 親コンポーネントと同期
+                    this.$emit('saved', this.savedTerms);
+                }
             } else {
                 alert('条件名を入力してください');
+                return;
             }
         },
         createQuery(){
@@ -137,7 +143,7 @@ export default {
                 })
             }
             if (this.terms.hash_tag.length > 0) {
-                let temp = this.terms.exclude_keyword.split(' ');
+                let temp = this.terms.hash_tag.split(' ');
                 let temp2 = temp.map(function(element){
                     return('#' + element);
                 });
@@ -173,6 +179,6 @@ export default {
 <style scoped>
 .tweet_search {
     padding:15px;
-    background-color:skyblue;
+    background-color:#64B5F6;
 }
 </style>

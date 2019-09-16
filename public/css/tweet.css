@@ -1,7 +1,4 @@
-.image-box{
-    max-height: 25rem;
+body{
+    background-color:skyblue;
 }
 
-.tweet-image{
-    max-height: 25rem;
-}

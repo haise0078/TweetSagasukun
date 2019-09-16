@@ -19,11 +19,11 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/index.css') }}" rel="stylesheet">
     @stack('css')
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -62,10 +62,15 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
+                                    <a class="dropdown-item" href="{{ route('favorite') }}">Favorites</a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    
                                 </div>
                             </li>
                         @endguest
@@ -74,10 +79,9 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="mx-5">
             @yield('content')
         </main>
-    </div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

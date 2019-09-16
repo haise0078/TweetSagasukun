@@ -1,8 +1,6 @@
 <template>
 <div>
-    <input type="text" v-model="message">{{ message }}
-        <tweet-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json">
-        </tweet-show-component>
+    <tweet-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json"></tweet-show-component>
 </div>
 </template>
 

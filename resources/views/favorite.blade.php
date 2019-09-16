@@ -6,7 +6,7 @@
     <link href="{{ asset('css/tweet.css') }}" rel="stylesheet">
 @endpush
 
-<div id="tweets-show">
+<div id="app">
     <favorites-show-component v-bind:result="{{ $tweets }}"></favorites-show-component>
 </div>
 

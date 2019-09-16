@@ -22,7 +22,6 @@
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
                 <div class="mr-5"><button v-show="!saved" @click.once="saveTweet()"><i class="far fa-bookmark" ></i></button><button v-show="saved" @click.once="saveTweet()"><i class="fas fa-bookmark" ></i></button></div>
             </div>
-            <input type="text" v-model="message">{{ message }}
         </div>
     </div>
 </template>
@@ -36,7 +35,6 @@ export default {
     },
     props: {
         tweet:Object,
-        message:String,
     },
     methods: {
         saveTweet: function(){
@@ -61,12 +59,18 @@ export default {
             });
         },
     },
-    mounted() {
-        console.log(this.message);
-    }
 }
 </script>>
 
 <style scoped>
+.image-box{
+    max-width: 100%;
+}
 
+.tweet-image{
+    max-width: 100%;
+}
+.media-body{
+    max-width: 80%;
+}
 </style>
