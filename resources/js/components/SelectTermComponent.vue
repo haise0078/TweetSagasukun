@@ -49,7 +49,7 @@ export default {
     height: 48px;
     width: 48px;
     font-size: 25px;
-    background-color:#1E88E5;
+    background-color:#66BB6A;
     color:white;
 }
 .nav-terms{

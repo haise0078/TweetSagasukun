@@ -6622,7 +6622,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.controll-btn[data-v-469551ba] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#1E88E5;\n    color:white;\n}\n.nav-terms[data-v-469551ba]{\n    position:fixed;\n    z-index: 1020;\n    top:45% + 96px;\n    left:0;\n    overflow: visible scroll;\n}\n.selected-btn[data-v-469551ba] {\n    color:white;\n    background-color:#81C784;\n    width:20rem;\n}\n", ""]);
+exports.push([module.i, "\n.controll-btn[data-v-469551ba] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.nav-terms[data-v-469551ba]{\n    position:fixed;\n    z-index: 1020;\n    top:45% + 96px;\n    left:0;\n    overflow: visible scroll;\n}\n.selected-btn[data-v-469551ba] {\n    color:white;\n    background-color:#81C784;\n    width:20rem;\n}\n", ""]);
 
 // exports
 
