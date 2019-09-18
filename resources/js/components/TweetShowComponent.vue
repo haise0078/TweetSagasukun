@@ -65,10 +65,12 @@ export default {
 <style scoped>
 .image-box{
     max-width: 100%;
+    max-height: 20rem;
 }
 
 .tweet-image{
     max-width: 100%;
+    max-height: 20rem;
 }
 .media-body{
     max-width: 80%;

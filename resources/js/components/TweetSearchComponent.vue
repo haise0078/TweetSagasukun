@@ -25,14 +25,6 @@
         <input type="text" v-model="termsName" placeholder="条件の名前を入力">
         <button @click='saveTerms'>条件を保存</button>
         <br>
-        <select v-model="selectedTerm">
-            <option disabled value="">条件を選択</option>
-            <option v-for="savedTerm in savedTerms" v-bind:key="savedTerm.id">
-                <p v-if="savedTerm.id!==0">
-                    {{ savedTerm.name }}
-                </p>
-            </option>
-        </select>
         <p v-if="error.length > 0">
             {{ error }}
         </p>
@@ -114,7 +106,11 @@ export default {
         saveTerms(){
             if (this.termsName.length > 0) {
                 if (localStorage.getItem(this.termsName) !== null) {
-                    alert('条件名が重複しています');
+                    if (window.confirm("条件「" + this.termsName + "」を上書きします")) {
+                        localStorage.setItem(this.termsName, JSON.stringify(this.terms));
+                        // 親コンポーネントと同期
+                        this.$emit('saved', this.savedTerms);
+                    }
                     return;
                 } else {
                     localStorage.setItem(this.termsName, JSON.stringify(this.terms));

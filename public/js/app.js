@@ -1896,14 +1896,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     selectedTerm: String
@@ -1983,7 +1975,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     saveTerms: function saveTerms() {
       if (this.termsName.length > 0) {
         if (localStorage.getItem(this.termsName) !== null) {
-          alert('条件名が重複しています');
+          if (window.confirm("条件「" + this.termsName + "」を上書きします")) {
+            localStorage.setItem(this.termsName, JSON.stringify(this.terms)); // 親コンポーネントと同期
+
+            this.$emit('saved', this.savedTerms);
+          }
+
           return;
         } else {
           localStorage.setItem(this.termsName, JSON.stringify(this.terms));
@@ -6679,7 +6676,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.image-box[data-v-4be1a1ba]{\n    max-width: 100%;\n}\n.tweet-image[data-v-4be1a1ba]{\n    max-width: 100%;\n}\n.media-body[data-v-4be1a1ba]{\n    max-width: 80%;\n}\n", ""]);
+exports.push([module.i, "\n.image-box[data-v-4be1a1ba]{\n    max-width: 100%;\n    max-height: 20rem;\n}\n.tweet-image[data-v-4be1a1ba]{\n    max-width: 100%;\n    max-height: 20rem;\n}\n.media-body[data-v-4be1a1ba]{\n    max-width: 80%;\n}\n", ""]);
 
 // exports
 
@@ -38897,55 +38894,6 @@ var render = function() {
     _c("button", { on: { click: _vm.saveTerms } }, [_vm._v("条件を保存")]),
     _vm._v(" "),
     _c("br"),
-    _vm._v(" "),
-    _c(
-      "select",
-      {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.selectedTerm,
-            expression: "selectedTerm"
-          }
-        ],
-        on: {
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.selectedTerm = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
-          }
-        }
-      },
-      [
-        _c("option", { attrs: { disabled: "", value: "" } }, [
-          _vm._v("条件を選択")
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.savedTerms, function(savedTerm) {
-          return _c("option", { key: savedTerm.id }, [
-            savedTerm.id !== 0
-              ? _c("p", [
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(savedTerm.name) +
-                      "\n            "
-                  )
-                ])
-              : _vm._e()
-          ])
-        })
-      ],
-      2
-    ),
     _vm._v(" "),
     _vm.error.length > 0
       ? _c("p", [_vm._v("\n        " + _vm._s(_vm.error) + "\n    ")])
