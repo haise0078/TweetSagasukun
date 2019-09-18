@@ -1,6 +1,6 @@
 <template>
 <div>
-    <tweet-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json"></tweet-show-component>
+    <favorite-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json" v-bind:saved="saved"></favorite-show-component>
 </div>
 </template>
 
@@ -9,7 +9,7 @@ export default {
     props: ["result"],
     data: function() {
         return{
-            message: "default",
+            saved: true,
         }
     },
 }

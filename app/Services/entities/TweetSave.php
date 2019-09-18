@@ -10,6 +10,6 @@ class TweetSave {
             'user_id' => Auth::id(),
             'tweet_json' => $tweet,
         ]);
-        return empty($result) ? "save_failed" : "save_successed";
+        return empty($result) ? 0 : $result->id;
     }
 }

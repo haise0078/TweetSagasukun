@@ -33,6 +33,7 @@ Vue.component('tweet-search-component', require('./components/TweetSearchCompone
 Vue.component('tweets-show-component', require('./components/TweetsShowComponent.vue').default);
 Vue.component('tweet-show-component', require('./components/TweetShowComponent.vue').default);
 Vue.component('favorites-show-component', require('./components/FavoritesShowComponent.vue').default);
+Vue.component('favorite-show-component', require('./components/FavoriteShowComponent.vue').default);
 Vue.component('select-term-component', require('./components/SelectTermComponent.vue').default);
 
 const tweet_search = new Vue({

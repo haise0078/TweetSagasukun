@@ -33,12 +33,12 @@
 export default {
     data: function(){
         return{
-            saved: false,
             savedId: 0,
         }
     },
     props: {
         tweet:Object,
+        saved:Boolean,
     },
     methods: {
         saveTweet: function(){
@@ -65,7 +65,7 @@ export default {
         },
         deleteTweet: function(){
             axios.post('/tweet/delete/', {
-                id: this.savedId 
+                id: this.tweet.id 
                 }).then(res=>{
                     if(res.data > 0) {
                         this.saved = !this.saved;
