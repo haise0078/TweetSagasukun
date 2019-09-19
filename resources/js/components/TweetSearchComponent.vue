@@ -3,24 +3,56 @@
         <h2 class="title">Search tweets</h2>
         <form @submit.prevent="searchTweets">
             <input type="hidden" name="_token" :value="csrf">
-            <input type="text" v-model="terms.keyword" name="keyword" placeholder="キーワードを入力">
-            <input type="text" v-model="terms.hash_tag" name="hash_tag" placeholder="ハッシュタグを入力">
-            <input type="text" v-model="terms.exclude_keyword" name="exclude_keyword" placeholder="除外ワードを入力">
-            <br>
-            <b>画像を含む ：</b><input type="checkbox" v-model="terms.image" name="image">
-            <br>
-            <b>動画を含む ：</b><input type="checkbox" v-model="terms.video" name='video'>
-            <br>
-            <b>リツイートを除外 ：</b><input type="checkbox" v-model="terms.exclude_retweet" name="exclude_retweet" checked="checked">
-            <br>
-            <b>リプライを除外 ：</b><input type="checkbox" v-model="terms.exclude_reply" name="exclude_reply" checked="checked">
-            <br>
-            <b>いいね数 ：</b><input type="text" v-model="terms.favorite_num" name="favorite_num" placeholder="いいね数を指定"><b>以上</b>
-            <br>
-            <b>リツイート数 ：</b><input type="text" v-model="terms.retweet_num" name="retweet_num" placeholder="リツイート数を指定"><b>以上</b>
-            <br>
-            <input type="submit" value="検索">
-            <br>
+            <div class="form-group">
+                <label for="InputKeyword">キーワード</label>
+                <input class="form-control form-control-sm" type="text" v-model="terms.keyword" name="keyword" id="InputKeyword" placeholder="キーワードを入力">
+                <small class="form-text text-muted">スペースで区切って複数のワードを指定できます</small>
+            </div>
+            <div class="form-group">
+                <label for="InputHashTag">ハッシュタグ</label>
+                <input class="form-control form-control-sm" type="text" v-model="terms.hash_tag" name="hash_tag" id="InputHashTag" placeholder="ハッシュタグを入力">
+                <small class="form-text text-muted">スペースで区切って複数のタグを指定できます</small>
+            </div>
+            <div class="form-group">
+                <label for="InputExcludeKeyword">除外キーワード</label>
+                <input class="form-control form-control-sm" type="text" v-model="terms.exclude_keyword" name="exclude_keyword" id="InputExcludeKeyword" placeholder="除外ワードを入力">
+                <small class="form-text text-muted">スペースで区切って複数のワードを指定できます</small>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="terms.image" name="image" id="imageCheck">
+                <label class="form-check-label" for="imageCheck">
+                    画像を含む
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="terms.video" name="video" id="videoCheck">
+                <label class="form-check-label" for="videoCheck">
+                    動画を含む
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="terms.exclude_retweet" name="exclude_retweet" checked="checked" id="retweetCheck">
+                <label class="form-check-label" for="retweetCheck">
+                    リツイートを除外
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" v-model="terms.exclude_reply" name="exclude_reply" checked="checked" id="replyCheck">
+                <label class="form-check-label" for="replyCheck">
+                    リプライを除外
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="favNum">いいね数</label>
+                <input class="form-control form-control-sm" type="text" v-model="terms.favorite_num" name="favorite_num" id="favNum" placeholder="いいね数を指定">
+                <small>以上</small>
+            </div>
+            <div class="form-group">
+                <label for="retweetNum">リツイート数</label>
+                <input class="form-control form-control-sm" type="text" v-model="terms.retweet_num" name="retweet_num" id="retweetNum" placeholder="リツイート数を指定">
+                <small>以上</small>
+            </div>
+            <input type="submit" class="btn btn-primary" value="検索">
         </form>
         <input type="text" v-model="termsName" placeholder="条件の名前を入力">
         <button @click='saveTerms'>条件を保存</button>

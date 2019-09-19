@@ -2013,6 +2013,38 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     selectedTerm: String
@@ -38888,326 +38920,397 @@ var render = function() {
           domProps: { value: _vm.csrf }
         }),
         _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.keyword,
-              expression: "terms.keyword"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "keyword",
-            placeholder: "キーワードを入力"
-          },
-          domProps: { value: _vm.terms.keyword },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "InputKeyword" } }, [
+            _vm._v("キーワード")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.keyword,
+                expression: "terms.keyword"
               }
-              _vm.$set(_vm.terms, "keyword", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.hash_tag,
-              expression: "terms.hash_tag"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "hash_tag",
-            placeholder: "ハッシュタグを入力"
-          },
-          domProps: { value: _vm.terms.hash_tag },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.terms, "hash_tag", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.exclude_keyword,
-              expression: "terms.exclude_keyword"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "exclude_keyword",
-            placeholder: "除外ワードを入力"
-          },
-          domProps: { value: _vm.terms.exclude_keyword },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.terms, "exclude_keyword", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("b", [_vm._v("画像を含む ：")]),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.image,
-              expression: "terms.image"
-            }
-          ],
-          attrs: { type: "checkbox", name: "image" },
-          domProps: {
-            checked: Array.isArray(_vm.terms.image)
-              ? _vm._i(_vm.terms.image, null) > -1
-              : _vm.terms.image
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.terms.image,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    _vm.$set(
-                      _vm.terms,
-                      "image",
-                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                    )
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "keyword",
+              id: "InputKeyword",
+              placeholder: "キーワードを入力"
+            },
+            domProps: { value: _vm.terms.keyword },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              } else {
-                _vm.$set(_vm.terms, "image", $$c)
+                _vm.$set(_vm.terms, "keyword", $event.target.value)
               }
             }
-          }
-        }),
+          }),
+          _vm._v(" "),
+          _c("small", { staticClass: "form-text text-muted" }, [
+            _vm._v("スペースで区切って複数のワードを指定できます")
+          ])
+        ]),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("b", [_vm._v("動画を含む ：")]),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.video,
-              expression: "terms.video"
-            }
-          ],
-          attrs: { type: "checkbox", name: "video" },
-          domProps: {
-            checked: Array.isArray(_vm.terms.video)
-              ? _vm._i(_vm.terms.video, null) > -1
-              : _vm.terms.video
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.terms.video,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    _vm.$set(
-                      _vm.terms,
-                      "video",
-                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                    )
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "InputHashTag" } }, [
+            _vm._v("ハッシュタグ")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.hash_tag,
+                expression: "terms.hash_tag"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "hash_tag",
+              id: "InputHashTag",
+              placeholder: "ハッシュタグを入力"
+            },
+            domProps: { value: _vm.terms.hash_tag },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              } else {
-                _vm.$set(_vm.terms, "video", $$c)
+                _vm.$set(_vm.terms, "hash_tag", $event.target.value)
               }
             }
-          }
-        }),
+          }),
+          _vm._v(" "),
+          _c("small", { staticClass: "form-text text-muted" }, [
+            _vm._v("スペースで区切って複数のタグを指定できます")
+          ])
+        ]),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("b", [_vm._v("リツイートを除外 ：")]),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.exclude_retweet,
-              expression: "terms.exclude_retweet"
-            }
-          ],
-          attrs: {
-            type: "checkbox",
-            name: "exclude_retweet",
-            checked: "checked"
-          },
-          domProps: {
-            checked: Array.isArray(_vm.terms.exclude_retweet)
-              ? _vm._i(_vm.terms.exclude_retweet, null) > -1
-              : _vm.terms.exclude_retweet
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.terms.exclude_retweet,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 &&
-                    _vm.$set(_vm.terms, "exclude_retweet", $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    _vm.$set(
-                      _vm.terms,
-                      "exclude_retweet",
-                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                    )
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "InputExcludeKeyword" } }, [
+            _vm._v("除外キーワード")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.exclude_keyword,
+                expression: "terms.exclude_keyword"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "exclude_keyword",
+              id: "InputExcludeKeyword",
+              placeholder: "除外ワードを入力"
+            },
+            domProps: { value: _vm.terms.exclude_keyword },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
-              } else {
-                _vm.$set(_vm.terms, "exclude_retweet", $$c)
+                _vm.$set(_vm.terms, "exclude_keyword", $event.target.value)
               }
             }
-          }
-        }),
+          }),
+          _vm._v(" "),
+          _c("small", { staticClass: "form-text text-muted" }, [
+            _vm._v("スペースで区切って複数のワードを指定できます")
+          ])
+        ]),
         _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("b", [_vm._v("リプライを除外 ：")]),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.exclude_reply,
-              expression: "terms.exclude_reply"
-            }
-          ],
-          attrs: {
-            type: "checkbox",
-            name: "exclude_reply",
-            checked: "checked"
-          },
-          domProps: {
-            checked: Array.isArray(_vm.terms.exclude_reply)
-              ? _vm._i(_vm.terms.exclude_reply, null) > -1
-              : _vm.terms.exclude_reply
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.terms.exclude_reply,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 &&
-                    _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
+        _c("div", { staticClass: "form-check" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.image,
+                expression: "terms.image"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: { type: "checkbox", name: "image", id: "imageCheck" },
+            domProps: {
+              checked: Array.isArray(_vm.terms.image)
+                ? _vm._i(_vm.terms.image, null) > -1
+                : _vm.terms.image
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.terms.image,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.terms,
+                        "image",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
                 } else {
-                  $$i > -1 &&
-                    _vm.$set(
-                      _vm.terms,
-                      "exclude_reply",
-                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                    )
+                  _vm.$set(_vm.terms, "image", $$c)
                 }
-              } else {
-                _vm.$set(_vm.terms, "exclude_reply", $$c)
               }
             }
-          }
-        }),
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-check-label", attrs: { for: "imageCheck" } },
+            [_vm._v("\n                画像を含む\n            ")]
+          )
+        ]),
         _vm._v(" "),
-        _c("br"),
+        _c("div", { staticClass: "form-check" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.video,
+                expression: "terms.video"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: { type: "checkbox", name: "video", id: "videoCheck" },
+            domProps: {
+              checked: Array.isArray(_vm.terms.video)
+                ? _vm._i(_vm.terms.video, null) > -1
+                : _vm.terms.video
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.terms.video,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.terms,
+                        "video",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.terms, "video", $$c)
+                }
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-check-label", attrs: { for: "videoCheck" } },
+            [_vm._v("\n                動画を含む\n            ")]
+          )
+        ]),
         _vm._v(" "),
-        _c("b", [_vm._v("いいね数 ：")]),
+        _c("div", { staticClass: "form-check" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.exclude_retweet,
+                expression: "terms.exclude_retweet"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: {
+              type: "checkbox",
+              name: "exclude_retweet",
+              checked: "checked",
+              id: "retweetCheck"
+            },
+            domProps: {
+              checked: Array.isArray(_vm.terms.exclude_retweet)
+                ? _vm._i(_vm.terms.exclude_retweet, null) > -1
+                : _vm.terms.exclude_retweet
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.terms.exclude_retweet,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 &&
+                      _vm.$set(_vm.terms, "exclude_retweet", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.terms,
+                        "exclude_retweet",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.terms, "exclude_retweet", $$c)
+                }
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-check-label", attrs: { for: "retweetCheck" } },
+            [_vm._v("\n                リツイートを除外\n            ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.exclude_reply,
+                expression: "terms.exclude_reply"
+              }
+            ],
+            staticClass: "form-check-input",
+            attrs: {
+              type: "checkbox",
+              name: "exclude_reply",
+              checked: "checked",
+              id: "replyCheck"
+            },
+            domProps: {
+              checked: Array.isArray(_vm.terms.exclude_reply)
+                ? _vm._i(_vm.terms.exclude_reply, null) > -1
+                : _vm.terms.exclude_reply
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.terms.exclude_reply,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 &&
+                      _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      _vm.$set(
+                        _vm.terms,
+                        "exclude_reply",
+                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                      )
+                  }
+                } else {
+                  _vm.$set(_vm.terms, "exclude_reply", $$c)
+                }
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "label",
+            { staticClass: "form-check-label", attrs: { for: "replyCheck" } },
+            [_vm._v("\n                リプライを除外\n            ")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "favNum" } }, [_vm._v("いいね数")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.favorite_num,
+                expression: "terms.favorite_num"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "favorite_num",
+              id: "favNum",
+              placeholder: "いいね数を指定"
+            },
+            domProps: { value: _vm.terms.favorite_num },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.terms, "favorite_num", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("small", [_vm._v("以上")])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "retweetNum" } }, [
+            _vm._v("リツイート数")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.terms.retweet_num,
+                expression: "terms.retweet_num"
+              }
+            ],
+            staticClass: "form-control form-control-sm",
+            attrs: {
+              type: "text",
+              name: "retweet_num",
+              id: "retweetNum",
+              placeholder: "リツイート数を指定"
+            },
+            domProps: { value: _vm.terms.retweet_num },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.terms, "retweet_num", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("small", [_vm._v("以上")])
+        ]),
+        _vm._v(" "),
         _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.favorite_num,
-              expression: "terms.favorite_num"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "favorite_num",
-            placeholder: "いいね数を指定"
-          },
-          domProps: { value: _vm.terms.favorite_num },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.terms, "favorite_num", $event.target.value)
-            }
-          }
-        }),
-        _c("b", [_vm._v("以上")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("b", [_vm._v("リツイート数 ：")]),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.terms.retweet_num,
-              expression: "terms.retweet_num"
-            }
-          ],
-          attrs: {
-            type: "text",
-            name: "retweet_num",
-            placeholder: "リツイート数を指定"
-          },
-          domProps: { value: _vm.terms.retweet_num },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.terms, "retweet_num", $event.target.value)
-            }
-          }
-        }),
-        _c("b", [_vm._v("以上")]),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "submit", value: "検索" } }),
-        _vm._v(" "),
-        _c("br")
+          staticClass: "btn btn-primary",
+          attrs: { type: "submit", value: "検索" }
+        })
       ]
     ),
     _vm._v(" "),
