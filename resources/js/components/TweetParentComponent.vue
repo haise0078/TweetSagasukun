@@ -7,7 +7,10 @@
     </div>
     <tweet-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet"></tweet-show-component>
     <nav class="sidebar">
-        <select-term-component class="sticky-sidebar" v-show="savedTerms.length > 0" v-bind:selectedTerm="selectedTerm" v-bind:savedTerms="savedTerms" v-on:selected="getSelectedTerm"></select-term-component>
+        <div class="remote-controller sticky-sidebar">
+            <button class="btn btn-primary controll-btn" v-show="savedTerms.length > 0" @click="toggleShowTerms"><i class="fas fa-bars"></i></button>
+            <select-term-component class="sticky-sidebar" v-bind:showTerms="showTerms" v-bind:savedTerms="savedTerms" v-on:selected="getSelectedTerm"></select-term-component>
+        </div>
     </nav>
 </div>
 </template>
@@ -20,11 +23,13 @@ export default {
             result: {},
             savedTerms: [],
             selectedTerm: '',
+            showTerms: false,
         }
     },
     methods: {
         toggleForm: function(){
             this.open_form = !this.open_form;
+            this.showTerms = false;
         },
         getResult: function(result){
             this.result = result;
@@ -34,12 +39,23 @@ export default {
         },
         getSelectedTerm: function(selectedTerm){
             this.selectedTerm = selectedTerm;
-        }
+        },
+        toggleShowTerms: function(){
+            this.showTerms = !this.showTerms;
+            this.open_form = false;
+        },
     }
 }
 </script>>
 
 <style scoped>
+    .controll-btn {
+        height: 48px;
+        width: 48px;
+        font-size: 25px;
+        background-color:#66BB6A;
+        color:white;
+    }
     .toggle_form {
         width:100%;
         height:48px;

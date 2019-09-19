@@ -1,8 +1,5 @@
 <template>
     <div>
-        <div class="remote-controller">
-            <button class="btn btn-primary controll-btn" @click="toggleShowTerms"><i class="fas fa-bars"></i></button>
-        </div>
         <div v-show="showTerms" class="nav flex-column nav-terms">
             <ul class="nav flex-column">
                 <li class="nav-item" v-for="savedTerm in savedTerms" :key="savedTerm.id">
@@ -18,11 +15,11 @@ export default {
     data: function(){
         return{
             selectedTerm: '',
-            showTerms: false,
         }
     },
     props: {
         savedTerms: Array,
+        showTerms: false,
     },
     mounted() {
         // 初期クエリ発行
@@ -36,11 +33,6 @@ export default {
             this.$emit('selected', this.selectedTerm);
         }
     },
-    methods: {
-        toggleShowTerms: function(){
-            this.showTerms = !this.showTerms;
-        },
-    }
 }
 </script>
 
@@ -55,7 +47,7 @@ export default {
 .nav-terms{
     position:fixed;
     z-index: 1020;
-    top:45% + 96px;
+    top:103px;
     left:0;
     overflow: visible scroll;
 }

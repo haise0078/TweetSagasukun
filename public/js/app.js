@@ -1884,18 +1884,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      selectedTerm: '',
-      showTerms: false
+      selectedTerm: ''
     };
   },
   props: {
-    savedTerms: Array
+    savedTerms: Array,
+    showTerms: false
   },
   mounted: function mounted() {
     // 初期クエリ発行
@@ -1907,11 +1904,6 @@ __webpack_require__.r(__webpack_exports__);
     selectedTerm: function selectedTerm() {
       console.log("selected");
       this.$emit('selected', this.selectedTerm);
-    }
-  },
-  methods: {
-    toggleShowTerms: function toggleShowTerms() {
-      this.showTerms = !this.showTerms;
     }
   }
 });
@@ -1941,18 +1933,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       open_form: false,
       result: {},
       savedTerms: [],
-      selectedTerm: ''
+      selectedTerm: '',
+      showTerms: false
     };
   },
   methods: {
     toggleForm: function toggleForm() {
       this.open_form = !this.open_form;
+      this.showTerms = false;
     },
     getResult: function getResult(result) {
       this.result = result;
@@ -1962,6 +1959,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     getSelectedTerm: function getSelectedTerm(selectedTerm) {
       this.selectedTerm = selectedTerm;
+    },
+    toggleShowTerms: function toggleShowTerms() {
+      this.showTerms = !this.showTerms;
+      this.open_form = false;
     }
   }
 });
@@ -6793,7 +6794,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.controll-btn[data-v-469551ba] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.nav-terms[data-v-469551ba]{\n    position:fixed;\n    z-index: 1020;\n    top:45% + 96px;\n    left:0;\n    overflow: visible scroll;\n}\n.selected-btn[data-v-469551ba] {\n    color:white;\n    background-color:#81C784;\n    width:20rem;\n}\n", ""]);
+exports.push([module.i, "\n.controll-btn[data-v-469551ba] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.nav-terms[data-v-469551ba]{\n    position:fixed;\n    z-index: 1020;\n    top:103px;\n    left:0;\n    overflow: visible scroll;\n}\n.selected-btn[data-v-469551ba] {\n    color:white;\n    background-color:#81C784;\n    width:20rem;\n}\n", ""]);
 
 // exports
 
@@ -6812,7 +6813,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.toggle_form[data-v-5bb134ad] {\n    width:100%;\n    height:48px;\n    font-size:25px;\n}\n.parent[data-v-5bb134ad] {\n    position:relative;\n}\n.sticky-sidebar[data-v-5bb134ad] {\n    position:fixed;\n    left: 0;\n    top: 55px;\n    width:3rem;\n}\nbutton[data-v-5bb134ad] {\n    background-color:#1E88E5;\n    color:white;\n}\n.search-btn[data-v-5bb134ad] {\n    top:55px; \n    z-index:1000;\n}\n", ""]);
+exports.push([module.i, "\n.controll-btn[data-v-5bb134ad] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.toggle_form[data-v-5bb134ad] {\n    width:100%;\n    height:48px;\n    font-size:25px;\n}\n.parent[data-v-5bb134ad] {\n    position:relative;\n}\n.sticky-sidebar[data-v-5bb134ad] {\n    position:fixed;\n    left: 0;\n    top: 55px;\n    width:3rem;\n}\nbutton[data-v-5bb134ad] {\n    background-color:#1E88E5;\n    color:white;\n}\n.search-btn[data-v-5bb134ad] {\n    top:55px; \n    z-index:1000;\n}\n", ""]);
 
 // exports
 
@@ -38672,17 +38673,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "remote-controller" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary controll-btn",
-          on: { click: _vm.toggleShowTerms }
-        },
-        [_c("i", { staticClass: "fas fa-bars" })]
-      )
-    ]),
-    _vm._v(" "),
     _c(
       "div",
       {
@@ -38822,29 +38812,37 @@ var render = function() {
         })
       }),
       _vm._v(" "),
-      _c(
-        "nav",
-        { staticClass: "sidebar" },
-        [
-          _c("select-term-component", {
-            directives: [
+      _c("nav", { staticClass: "sidebar" }, [
+        _c(
+          "div",
+          { staticClass: "remote-controller sticky-sidebar" },
+          [
+            _c(
+              "button",
               {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.savedTerms.length > 0,
-                expression: "savedTerms.length > 0"
-              }
-            ],
-            staticClass: "sticky-sidebar",
-            attrs: {
-              selectedTerm: _vm.selectedTerm,
-              savedTerms: _vm.savedTerms
-            },
-            on: { selected: _vm.getSelectedTerm }
-          })
-        ],
-        1
-      )
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.savedTerms.length > 0,
+                    expression: "savedTerms.length > 0"
+                  }
+                ],
+                staticClass: "btn btn-primary controll-btn",
+                on: { click: _vm.toggleShowTerms }
+              },
+              [_c("i", { staticClass: "fas fa-bars" })]
+            ),
+            _vm._v(" "),
+            _c("select-term-component", {
+              staticClass: "sticky-sidebar",
+              attrs: { showTerms: _vm.showTerms, savedTerms: _vm.savedTerms },
+              on: { selected: _vm.getSelectedTerm }
+            })
+          ],
+          1
+        )
+      ])
     ],
     2
   )
