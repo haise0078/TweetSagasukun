@@ -21,8 +21,8 @@
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
                 <div class="mr-5">
-                    <button v-show="!saved" @click.once="saveTweet()"><i class="far fa-bookmark" ></i></button>
-                    <button v-show="saved" @click.once="deleteTweet()"><i class="fas fa-bookmark" ></i></button>
+                    <button v-show="!saved" @click="saveTweet()" :disabled="processing"><i class="far fa-bookmark" ></i></button>
+                    <button v-show="saved" @click="deleteTweet()" :disabled="processing"><i class="fas fa-bookmark" ></i></button>
                 </div>
             </div>
         </div>
@@ -35,6 +35,7 @@ export default {
         return{
             saved: false,
             savedId: 0,
+            processing: false,
         }
     },
     props: {
@@ -42,12 +43,15 @@ export default {
     },
     methods: {
         saveTweet: function(){
+            console.log("save");
+            this.processing = true;
             axios.post('/tweet/save/', {
                 tweet: this.tweet
                 }).then(res=>{
+                    this.processing = false;
                     if(res.data !== 0) {
                         this.saved = !this.saved;
-                        this.savedId = res.data;    
+                        this.savedId = res.data;
                     }
                 }
                 ).catch(function(error){
@@ -64,12 +68,15 @@ export default {
             });
         },
         deleteTweet: function(){
+            this.processing = true;
+            console.log("delete");
             axios.post('/tweet/delete/', {
-                id: this.savedId 
+                id: this.savedId
                 }).then(res=>{
+                    this.processing = false;
                     if(res.data > 0) {
                         this.saved = !this.saved;
-                        this.saved_id = 0;    
+                        this.saved_id = 0;
                     }
                 }
                 ).catch(function(error){

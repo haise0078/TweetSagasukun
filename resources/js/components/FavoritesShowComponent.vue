@@ -1,6 +1,6 @@
 <template>
 <div>
-    <favorite-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json" v-bind:saved="saved"></favorite-show-component>
+    <favorite-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet.tweet_json" v-bind:savedId="tweet.id"></favorite-show-component>
 </div>
 </template>
 

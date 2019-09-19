@@ -1762,26 +1762,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      savedId: 0
-    };
-  },
   props: {
     tweet: Object,
-    saved: Boolean
+    savedId: 0
+  },
+  data: function data() {
+    return {
+      saved: true,
+      tweetId: 0,
+      processing: false
+    };
   },
   methods: {
     saveTweet: function saveTweet() {
       var _this = this;
 
+      this.processing = true;
       axios.post('/tweet/save/', {
         tweet: this.tweet
       }).then(function (res) {
         if (res.data !== 0) {
           _this.saved = !_this.saved;
-          _this.savedId = res.data;
+          _this.tweetId = res.data;
         }
+
+        _this.processing = false;
       })["catch"](function (error) {
         if (error.response) {
           console.log(error.response.data);
@@ -1800,13 +1805,15 @@ __webpack_require__.r(__webpack_exports__);
     deleteTweet: function deleteTweet() {
       var _this2 = this;
 
+      this.processing = true;
       axios.post('/tweet/delete/', {
-        id: this.tweet.id
+        id: this.tweetId
       }).then(function (res) {
         if (res.data > 0) {
           _this2.saved = !_this2.saved;
-          _this2.saved_id = 0;
         }
+
+        _this2.processing = false;
       })["catch"](function (error) {
         if (error.response) {
           console.log(error.response.data);
@@ -1822,6 +1829,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
+  },
+  created: function created() {
+    this.tweetId = this.savedId;
   }
 });
 
@@ -2208,7 +2218,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       saved: false,
-      savedId: 0
+      savedId: 0,
+      processing: false
     };
   },
   props: {
@@ -2218,9 +2229,13 @@ __webpack_require__.r(__webpack_exports__);
     saveTweet: function saveTweet() {
       var _this = this;
 
+      console.log("save");
+      this.processing = true;
       axios.post('/tweet/save/', {
         tweet: this.tweet
       }).then(function (res) {
+        _this.processing = false;
+
         if (res.data !== 0) {
           _this.saved = !_this.saved;
           _this.savedId = res.data;
@@ -2243,9 +2258,13 @@ __webpack_require__.r(__webpack_exports__);
     deleteTweet: function deleteTweet() {
       var _this2 = this;
 
+      this.processing = true;
+      console.log("delete");
       axios.post('/tweet/delete/', {
         id: this.savedId
       }).then(function (res) {
+        _this2.processing = false;
+
         if (res.data > 0) {
           _this2.saved = !_this2.saved;
           _this2.saved_id = 0;
@@ -38562,8 +38581,9 @@ var render = function() {
                   expression: "!saved"
                 }
               ],
+              attrs: { disabled: _vm.processing },
               on: {
-                "~click": function($event) {
+                click: function($event) {
                   return _vm.saveTweet()
                 }
               }
@@ -38582,8 +38602,9 @@ var render = function() {
                   expression: "saved"
                 }
               ],
+              attrs: { disabled: _vm.processing },
               on: {
-                "~click": function($event) {
+                click: function($event) {
                   return _vm.deleteTweet()
                 }
               }
@@ -38622,7 +38643,7 @@ var render = function() {
     _vm._l(_vm.result, function(tweet) {
       return _c("favorite-show-component", {
         key: tweet.id,
-        attrs: { tweet: tweet.tweet_json, saved: _vm.saved }
+        attrs: { tweet: tweet.tweet_json, savedId: tweet.id }
       })
     }),
     1
@@ -39326,8 +39347,9 @@ var render = function() {
                   expression: "!saved"
                 }
               ],
+              attrs: { disabled: _vm.processing },
               on: {
-                "~click": function($event) {
+                click: function($event) {
                   return _vm.saveTweet()
                 }
               }
@@ -39346,8 +39368,9 @@ var render = function() {
                   expression: "saved"
                 }
               ],
+              attrs: { disabled: _vm.processing },
               on: {
-                "~click": function($event) {
+                click: function($event) {
                   return _vm.deleteTweet()
                 }
               }

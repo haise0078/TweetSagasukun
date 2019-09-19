@@ -21,8 +21,8 @@
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
                 <div class="mr-5">
-                    <button v-show="!saved" @click.once="saveTweet()"><i class="far fa-bookmark" ></i></button>
-                    <button v-show="saved" @click.once="deleteTweet()"><i class="fas fa-bookmark" ></i></button>
+                    <button v-show="!saved" @click="saveTweet()" :disabled="processing"><i class="far fa-bookmark" ></i></button>
+                    <button v-show="saved" @click="deleteTweet()" :disabled="processing"><i class="fas fa-bookmark" ></i></button>
                 </div>
             </div>
         </div>
@@ -31,24 +31,28 @@
 
 <script>
 export default {
-    data: function(){
-        return{
-            savedId: 0,
-        }
-    },
     props: {
         tweet:Object,
-        saved:Boolean,
+        savedId:0,
+    },
+    data: function(){
+        return {
+            saved:true,
+            tweetId: 0,
+            processing:false,
+        }
     },
     methods: {
         saveTweet: function(){
+            this.processing = true;
             axios.post('/tweet/save/', {
                 tweet: this.tweet
                 }).then(res=>{
                     if(res.data !== 0) {
                         this.saved = !this.saved;
-                        this.savedId = res.data;    
+                        this.tweetId = res.data;
                     }
+                    this.processing = false;
                 }
                 ).catch(function(error){
                 if (error.response) {
@@ -64,13 +68,14 @@ export default {
             });
         },
         deleteTweet: function(){
+            this.processing = true;
             axios.post('/tweet/delete/', {
-                id: this.tweet.id 
+                id: this.tweetId
                 }).then(res=>{
                     if(res.data > 0) {
                         this.saved = !this.saved;
-                        this.saved_id = 0;    
                     }
+                    this.processing = false;
                 }
                 ).catch(function(error){
                 if (error.response) {
@@ -86,6 +91,9 @@ export default {
             });
         },
     },
+    created() {
+        this.tweetId = this.savedId;
+    }
 }
 </script>>
 
