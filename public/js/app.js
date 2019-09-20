@@ -2045,6 +2045,28 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     selectedTerm: String
@@ -6864,7 +6886,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tweet_search[data-v-7d45646f] {\n    padding:15px;\n    background-color:#64B5F6;\n}\n", ""]);
+exports.push([module.i, "\n.tweet_search[data-v-7d45646f] {\n    padding:15px;\n    background-color:#64B5F6;\n}\n.save_button[data-v-7d45646f] {\n    background-color:#66BB6A;\n}\n", ""]);
 
 // exports
 
@@ -39239,112 +39261,185 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "favNum" } }, [_vm._v("いいね数")]),
+        _c("div", { staticClass: "form-group row" }, [
+          _vm._m(0),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.favorite_num,
-                expression: "terms.favorite_num"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            attrs: {
-              type: "text",
-              name: "favorite_num",
-              id: "favNum",
-              placeholder: "いいね数を指定"
-            },
-            domProps: { value: _vm.terms.favorite_num },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _c("div", { staticClass: "col-6 col-sm-4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.terms.favorite_num,
+                  expression: "terms.favorite_num"
                 }
-                _vm.$set(_vm.terms, "favorite_num", $event.target.value)
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "favorite_num",
+                id: "favNum",
+                placeholder: "いいね数を指定"
+              },
+              domProps: { value: _vm.terms.favorite_num },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.terms, "favorite_num", $event.target.value)
+                }
               }
-            }
-          }),
-          _vm._v(" "),
-          _c("small", [_vm._v("以上")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "retweetNum" } }, [
-            _vm._v("リツイート数")
+            })
           ]),
           _vm._v(" "),
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.retweet_num,
-                expression: "terms.retweet_num"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            attrs: {
-              type: "text",
-              name: "retweet_num",
-              id: "retweetNum",
-              placeholder: "リツイート数を指定"
-            },
-            domProps: { value: _vm.terms.retweet_num },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.$set(_vm.terms, "retweet_num", $event.target.value)
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("small", [_vm._v("以上")])
+          _vm._m(1)
         ]),
         _vm._v(" "),
-        _c("input", {
-          staticClass: "btn btn-primary",
-          attrs: { type: "submit", value: "検索" }
-        })
+        _c("div", { staticClass: "form-group row" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-6 col-sm-4" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.terms.retweet_num,
+                  expression: "terms.retweet_num"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: {
+                type: "text",
+                name: "retweet_num",
+                id: "retweetNum",
+                placeholder: "リツイート数を指定"
+              },
+              domProps: { value: _vm.terms.retweet_num },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.terms, "retweet_num", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(3)
+        ]),
+        _vm._v(" "),
+        _vm._m(4)
       ]
     ),
     _vm._v(" "),
-    _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.termsName,
-          expression: "termsName"
-        }
-      ],
-      attrs: { type: "text", placeholder: "条件の名前を入力" },
-      domProps: { value: _vm.termsName },
-      on: {
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.termsName = $event.target.value
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.saveTerms } }, [_vm._v("条件を保存")]),
-    _vm._v(" "),
     _c("br"),
     _vm._v(" "),
-    _vm.error.length > 0
-      ? _c("p", [_vm._v("\n        " + _vm._s(_vm.error) + "\n    ")])
-      : _vm._e()
+    _c("div", [
+      _c("div", { staticClass: "form-group row" }, [
+        _c("div", { staticClass: "col-8 col-sm-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.termsName,
+                expression: "termsName"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "text", placeholder: "条件の名前を入力" },
+            domProps: { value: _vm.termsName },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.termsName = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-4 col-sm-3" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary save_button",
+              on: { click: _vm.saveTerms }
+            },
+            [_vm._v("保存")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.error.length > 0
+        ? _c("div", [
+            _vm._v("\n            " + _vm._s(_vm.error) + "\n        ")
+          ])
+        : _vm._e()
+    ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c("label", { staticClass: "col-form-label", attrs: { for: "favNum" } }, [
+        _vm._v("いいね数")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 col-sm-2" }, [
+      _c("label", { staticClass: "col-form-label", attrs: { for: "favNum" } }, [
+        _vm._v("以上")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-12" }, [
+      _c(
+        "label",
+        { staticClass: "col-form-label", attrs: { for: "retweetNum" } },
+        [_vm._v("リツイート数")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 col-sm-2" }, [
+      _c(
+        "label",
+        { staticClass: "col-form-label", attrs: { for: "retweetNum" } },
+        [_vm._v("以上")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("input", {
+        staticClass: "btn btn-primary",
+        attrs: { type: "submit", value: "検索" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 

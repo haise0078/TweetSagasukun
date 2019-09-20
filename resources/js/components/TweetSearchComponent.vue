@@ -42,24 +42,46 @@
                     リプライを除外
                 </label>
             </div>
-            <div class="form-group">
-                <label for="favNum">いいね数</label>
-                <input class="form-control form-control-sm" type="text" v-model="terms.favorite_num" name="favorite_num" id="favNum" placeholder="いいね数を指定">
-                <small>以上</small>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label for="favNum" class="col-form-label">いいね数</label>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <input class="form-control" type="text" v-model="terms.favorite_num" name="favorite_num" id="favNum" placeholder="いいね数を指定">
+                </div>
+                <div class="col-3 col-sm-2">
+                    <label for="favNum" class="col-form-label">以上</label>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="retweetNum">リツイート数</label>
-                <input class="form-control form-control-sm" type="text" v-model="terms.retweet_num" name="retweet_num" id="retweetNum" placeholder="リツイート数を指定">
-                <small>以上</small>
+            <div class="form-group row">
+                <div class="col-12">
+                    <label for="retweetNum" class="col-form-label">リツイート数</label>
+                </div>
+                <div class="col-6 col-sm-4">
+                    <input class="form-control" type="text" v-model="terms.retweet_num" name="retweet_num" id="retweetNum" placeholder="リツイート数を指定">
+                </div>
+                <div class="col-3 col-sm-2">
+                    <label for="retweetNum" class="col-form-label">以上</label>
+                </div>
             </div>
-            <input type="submit" class="btn btn-primary" value="検索">
+            <div>
+                <input type="submit" class="btn btn-primary" value="検索">
+            </div>
         </form>
-        <input type="text" v-model="termsName" placeholder="条件の名前を入力">
-        <button @click='saveTerms'>条件を保存</button>
         <br>
-        <p v-if="error.length > 0">
-            {{ error }}
-        </p>
+        <div>
+            <div class="form-group row">
+                <div class="col-8 col-sm-6">
+                    <input class="form-control" type="text" v-model="termsName" placeholder="条件の名前を入力">
+                </div>
+                <div class="col-4 col-sm-3">
+                    <button class="btn btn-primary save_button" @click='saveTerms'>保存</button>
+                </div>
+            </div>
+            <div v-if="error.length > 0">
+                {{ error }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -208,5 +230,8 @@ export default {
 .tweet_search {
     padding:15px;
     background-color:#64B5F6;
+}
+.save_button {
+    background-color:#66BB6A;
 }
 </style>
