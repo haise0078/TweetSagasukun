@@ -1936,6 +1936,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1980,13 +2005,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6848,7 +6866,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.controll-btn[data-v-469551ba] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.nav-terms[data-v-469551ba]{\n    position:fixed;\n    z-index: 1020;\n    top:103px;\n    left:0;\n    overflow: visible scroll;\n}\n.selected-btn[data-v-469551ba] {\n    color:white;\n    background-color:#81C784;\n    width:20rem;\n}\n", ""]);
+exports.push([module.i, "\n.nav-item[data-v-469551ba] {\n    display: inline-block;\n    width: 100%;\n    text-decoration: none;\n    position: relative;\n    padding: 8px 30px 8px 20px;\n    border-bottom: 1px groove #4DB6AC;\n}\n", ""]);
 
 // exports
 
@@ -6867,7 +6885,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.controll-btn[data-v-5bb134ad] {\n    height: 48px;\n    width: 48px;\n    font-size: 25px;\n    background-color:#66BB6A;\n    color:white;\n}\n.toggle_form[data-v-5bb134ad] {\n    width:100%;\n    height:48px;\n    font-size:25px;\n}\n.parent[data-v-5bb134ad] {\n    position:relative;\n}\n.sticky-sidebar[data-v-5bb134ad] {\n    position:fixed;\n    left: 0;\n    top: 55px;\n    width:3rem;\n}\nbutton[data-v-5bb134ad] {\n    background-color:#1E88E5;\n    color:white;\n}\n.search-btn[data-v-5bb134ad] {\n    top:55px; \n    z-index:1000;\n}\n", ""]);
+exports.push([module.i, "\n.sidebar-wrapper[data-v-5bb134ad] {\n    width: 260px;\n    height: 100%;\n    max-height: 100%;\n    position: fixed;\n    top: 55px;\n    left: 0px;\n    z-index: 999;\n}\n.parent[data-v-5bb134ad] {\n    position:relative;\n}\n.main-contents[data-v-5bb134ad] {\n    margin-left: 260px\n}\n.sidebar-content[data-v-5bb134ad] {\n    max-height: calc(100% - 30px);\n    height: calc(100% - 30px);\n    overflow-y: auto;\n    position: relative;\n    padding-bottom: 2rem;\n    font-size: 1.0rem;\n    border-right: 1px groove #4DB6AC;\n}\n.sidebar-wrapper ul[data-v-5bb134ad] {\n    list-style-type: none;\n    margin: 0;\n    padding: 0;\n}\n.sidebar-wrapper li[data-v-5bb134ad] {\n    border-bottom: 1px groove #4DB6AC;\n}\n.sidebar-wrapper ul li a[data-v-5bb134ad] {\n    display: inline-block;\n    width: 100%;\n    text-decoration: none;\n    position: relative;\n    padding: 8px 30px 8px 20px;\n}\n.header-menu[data-v-5bb134ad] {\n    font-weight: bold;\n    width: 100%;\n    font-size: 0.8rem;\n    padding: 15px 20px 5px 20px;\n    display: inline-block;\n}\n", ""]);
 
 // exports
 
@@ -6886,7 +6904,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.tweet_search[data-v-7d45646f] {\n    padding:15px;\n    background-color:#64B5F6;\n}\n.save_button[data-v-7d45646f] {\n    background-color:#66BB6A;\n}\n", ""]);
+exports.push([module.i, "\n.tweet-search[data-v-7d45646f] {\n    padding:15px;\n    background-color:#64B5F6;\n}\n.save-button[data-v-7d45646f] {\n    text-align: right;\n}\n.save-button button[data-v-7d45646f] {\n    background-color:#66BB6A;\n}\n.form-group label[data-v-7d45646f] {\n    font-size: 0.7rem;\n}\n.search-button[data-v-7d45646f] {\n    text-align: right;\n}\n", ""]);
 
 // exports
 
@@ -38747,9 +38765,10 @@ var render = function() {
           _vm._l(_vm.savedTerms, function(savedTerm) {
             return _c("li", { key: savedTerm.id, staticClass: "nav-item" }, [
               _c(
-                "button",
+                "a",
                 {
-                  staticClass: "btn btn-primary selected-btn",
+                  staticClass: "selected-btn",
+                  attrs: { href: "#" },
                   on: {
                     click: function($event) {
                       _vm.selectedTerm = savedTerm.name
@@ -38801,107 +38820,115 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "parent" },
-    [
-      _c(
-        "div",
-        { staticClass: "position-sticky search-btn" },
-        [
-          _c(
-            "button",
-            {
-              directives: [
-                {
-                  name: "show",
-                  rawName: "v-show",
-                  value: !_vm.open_form,
-                  expression: "!open_form"
-                }
-              ],
-              staticClass: "toggle_form btn btn-primary",
-              on: { click: _vm.toggleForm }
-            },
-            [_c("i", { staticClass: "fas fa-search-plus" })]
-          ),
+  return _c("div", { staticClass: "parent" }, [
+    _c("nav", { staticClass: "sidebar-wrapper", attrs: { id: "sidebar" } }, [
+      _c("div", { staticClass: "sidebar-content" }, [
+        _c("ul", [
+          _vm._m(0),
           _vm._v(" "),
           _c(
-            "button",
-            {
-              directives: [
+            "li",
+            { staticClass: "sidebar-dropdown" },
+            [
+              _c(
+                "a",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.open_form,
-                  expression: "open_form"
-                }
-              ],
-              staticClass: "toggle_form btn btn-primary",
-              on: { click: _vm.toggleForm }
-            },
-            [_c("i", { staticClass: "fas fa-search-minus" })]
-          ),
-          _vm._v(" "),
-          _c("tweet-search-component", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.open_form,
-                expression: "open_form"
-              }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.open_form,
+                      expression: "!open_form"
+                    }
+                  ],
+                  staticClass: "toggle_form",
+                  attrs: { href: "#" },
+                  on: { click: _vm.toggleForm }
+                },
+                [_c("i", { staticClass: "fas fa-search-plus" })]
+              ),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.open_form,
+                      expression: "open_form"
+                    }
+                  ],
+                  staticClass: "toggle-form",
+                  attrs: { href: "#" },
+                  on: { click: _vm.toggleForm }
+                },
+                [_c("i", { staticClass: "fas fa-search-minus" })]
+              ),
+              _vm._v(" "),
+              _c("tweet-search-component", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.open_form,
+                    expression: "open_form"
+                  }
+                ],
+                attrs: { result: _vm.result, selectedTerm: _vm.selectedTerm },
+                on: { searched: _vm.getResult, saved: _vm.getSavedTerms }
+              })
             ],
-            attrs: { result: _vm.result, selectedTerm: _vm.selectedTerm },
-            on: { searched: _vm.getResult, saved: _vm.getSavedTerms }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            [
+              _c(
+                "a",
+                { attrs: { href: "#" }, on: { click: _vm.toggleShowTerms } },
+                [
+                  _c("i", { staticClass: "fas fa-list" }),
+                  _c("span", [_vm._v("保存条件")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("select-term-component", {
+                staticClass: "sticky-sidebar",
+                attrs: { showTerms: _vm.showTerms, savedTerms: _vm.savedTerms },
+                on: { selected: _vm.getSelectedTerm }
+              })
+            ],
+            1
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "main-contents" },
       _vm._l(_vm.result, function(tweet) {
         return _c("tweet-show-component", {
           key: tweet.id,
           attrs: { tweet: tweet }
         })
       }),
-      _vm._v(" "),
-      _c("nav", { staticClass: "sidebar" }, [
-        _c(
-          "div",
-          { staticClass: "remote-controller sticky-sidebar" },
-          [
-            _c(
-              "button",
-              {
-                directives: [
-                  {
-                    name: "show",
-                    rawName: "v-show",
-                    value: _vm.savedTerms.length > 0,
-                    expression: "savedTerms.length > 0"
-                  }
-                ],
-                staticClass: "btn btn-primary controll-btn",
-                on: { click: _vm.toggleShowTerms }
-              },
-              [_c("i", { staticClass: "fas fa-bars" })]
-            ),
-            _vm._v(" "),
-            _c("select-term-component", {
-              staticClass: "sticky-sidebar",
-              attrs: { showTerms: _vm.showTerms, savedTerms: _vm.savedTerms },
-              on: { selected: _vm.getSelectedTerm }
-            })
-          ],
-          1
-        )
-      ])
-    ],
-    2
-  )
+      1
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "header-menu" }, [
+      _c("span", [_vm._v("MENU")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38923,9 +38950,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "tweet_search" }, [
-    _c("h2", { staticClass: "title" }, [_vm._v("Search tweets")]),
-    _vm._v(" "),
+  return _c("div", { staticClass: "tweet-search" }, [
     _c(
       "form",
       {
@@ -38974,12 +38999,6 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("small", { staticClass: "form-text text-muted" }, [
-            _vm._v("スペースで区切って複数のワードを指定できます")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "InputHashTag" } }, [
             _vm._v("ハッシュタグ")
           ]),
@@ -39011,12 +39030,6 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("small", { staticClass: "form-text text-muted" }, [
-            _vm._v("スペースで区切って複数のタグを指定できます")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group" }, [
           _c("label", { attrs: { for: "InputExcludeKeyword" } }, [
             _vm._v("除外キーワード")
           ]),
@@ -39048,331 +39061,334 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("small", { staticClass: "form-text text-muted" }, [
-            _vm._v("スペースで区切って複数のワードを指定できます")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.image,
-                expression: "terms.image"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", name: "image", id: "imageCheck" },
-            domProps: {
-              checked: Array.isArray(_vm.terms.image)
-                ? _vm._i(_vm.terms.image, null) > -1
-                : _vm.terms.image
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.terms.image,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.terms,
-                        "image",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.terms, "image", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "imageCheck" } },
-            [_vm._v("\n                画像を含む\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.video,
-                expression: "terms.video"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: { type: "checkbox", name: "video", id: "videoCheck" },
-            domProps: {
-              checked: Array.isArray(_vm.terms.video)
-                ? _vm._i(_vm.terms.video, null) > -1
-                : _vm.terms.video
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.terms.video,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.terms,
-                        "video",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.terms, "video", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "videoCheck" } },
-            [_vm._v("\n                動画を含む\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.exclude_retweet,
-                expression: "terms.exclude_retweet"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: {
-              type: "checkbox",
-              name: "exclude_retweet",
-              checked: "checked",
-              id: "retweetCheck"
-            },
-            domProps: {
-              checked: Array.isArray(_vm.terms.exclude_retweet)
-                ? _vm._i(_vm.terms.exclude_retweet, null) > -1
-                : _vm.terms.exclude_retweet
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.terms.exclude_retweet,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.terms, "exclude_retweet", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.terms,
-                        "exclude_retweet",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.terms, "exclude_retweet", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "retweetCheck" } },
-            [_vm._v("\n                リツイートを除外\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.terms.exclude_reply,
-                expression: "terms.exclude_reply"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: {
-              type: "checkbox",
-              name: "exclude_reply",
-              checked: "checked",
-              id: "replyCheck"
-            },
-            domProps: {
-              checked: Array.isArray(_vm.terms.exclude_reply)
-                ? _vm._i(_vm.terms.exclude_reply, null) > -1
-                : _vm.terms.exclude_reply
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.terms.exclude_reply,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 &&
-                      _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      _vm.$set(
-                        _vm.terms,
-                        "exclude_reply",
-                        $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                      )
-                  }
-                } else {
-                  _vm.$set(_vm.terms, "exclude_reply", $$c)
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "replyCheck" } },
-            [_vm._v("\n                リプライを除外\n            ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group row" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 col-sm-4" }, [
+          _c("div", { staticClass: "form-check" }, [
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.terms.favorite_num,
-                  expression: "terms.favorite_num"
+                  value: _vm.terms.image,
+                  expression: "terms.image"
                 }
               ],
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                name: "favorite_num",
-                id: "favNum",
-                placeholder: "いいね数を指定"
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", name: "image", id: "imageCheck" },
+              domProps: {
+                checked: Array.isArray(_vm.terms.image)
+                  ? _vm._i(_vm.terms.image, null) > -1
+                  : _vm.terms.image
               },
-              domProps: { value: _vm.terms.favorite_num },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                change: function($event) {
+                  var $$a = _vm.terms.image,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && _vm.$set(_vm.terms, "image", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.terms,
+                          "image",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.terms, "image", $$c)
                   }
-                  _vm.$set(_vm.terms, "favorite_num", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "imageCheck" } },
+              [_vm._v("\n                    画像を含む\n                ")]
+            )
           ]),
           _vm._v(" "),
-          _vm._m(1)
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group row" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 col-sm-4" }, [
+          _c("div", { staticClass: "form-check" }, [
             _c("input", {
               directives: [
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.terms.retweet_num,
-                  expression: "terms.retweet_num"
+                  value: _vm.terms.video,
+                  expression: "terms.video"
                 }
               ],
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                name: "retweet_num",
-                id: "retweetNum",
-                placeholder: "リツイート数を指定"
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", name: "video", id: "videoCheck" },
+              domProps: {
+                checked: Array.isArray(_vm.terms.video)
+                  ? _vm._i(_vm.terms.video, null) > -1
+                  : _vm.terms.video
               },
-              domProps: { value: _vm.terms.retweet_num },
               on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                change: function($event) {
+                  var $$a = _vm.terms.video,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && _vm.$set(_vm.terms, "video", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.terms,
+                          "video",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.terms, "video", $$c)
                   }
-                  _vm.$set(_vm.terms, "retweet_num", $event.target.value)
                 }
               }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "videoCheck" } },
+              [_vm._v("\n                    動画を含む\n                ")]
+            )
           ]),
           _vm._v(" "),
-          _vm._m(3)
-        ]),
-        _vm._v(" "),
-        _vm._m(4)
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.terms.exclude_retweet,
+                  expression: "terms.exclude_retweet"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "checkbox",
+                name: "exclude_retweet",
+                checked: "checked",
+                id: "retweetCheck"
+              },
+              domProps: {
+                checked: Array.isArray(_vm.terms.exclude_retweet)
+                  ? _vm._i(_vm.terms.exclude_retweet, null) > -1
+                  : _vm.terms.exclude_retweet
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.terms.exclude_retweet,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.terms,
+                          "exclude_retweet",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.terms,
+                          "exclude_retweet",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.terms, "exclude_retweet", $$c)
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              {
+                staticClass: "form-check-label",
+                attrs: { for: "retweetCheck" }
+              },
+              [
+                _vm._v(
+                  "\n                    リツイートを除外\n                "
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-check" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.terms.exclude_reply,
+                  expression: "terms.exclude_reply"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "checkbox",
+                name: "exclude_reply",
+                checked: "checked",
+                id: "replyCheck"
+              },
+              domProps: {
+                checked: Array.isArray(_vm.terms.exclude_reply)
+                  ? _vm._i(_vm.terms.exclude_reply, null) > -1
+                  : _vm.terms.exclude_reply
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.terms.exclude_reply,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(_vm.terms, "exclude_reply", $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.terms,
+                          "exclude_reply",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.terms, "exclude_reply", $$c)
+                  }
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "replyCheck" } },
+              [_vm._v("\n                    リプライを除外\n                ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.terms.favorite_num,
+                    expression: "terms.favorite_num"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  name: "favorite_num",
+                  id: "favNum",
+                  placeholder: "いいね数を指定"
+                },
+                domProps: { value: _vm.terms.favorite_num },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.terms, "favorite_num", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(1)
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-6" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.terms.retweet_num,
+                    expression: "terms.retweet_num"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  name: "retweet_num",
+                  id: "retweetNum",
+                  placeholder: "リツイート数を指定"
+                },
+                domProps: { value: _vm.terms.retweet_num },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.terms, "retweet_num", $event.target.value)
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _vm._m(3)
+          ]),
+          _vm._v(" "),
+          _vm._m(4)
+        ])
       ]
     ),
     _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("div", [
-      _c("div", { staticClass: "form-group row" }, [
-        _c("div", { staticClass: "col-8 col-sm-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.termsName,
-                expression: "termsName"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: { type: "text", placeholder: "条件の名前を入力" },
-            domProps: { value: _vm.termsName },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.termsName = $event.target.value
-              }
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", [_vm._v("条件保存")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.termsName,
+            expression: "termsName"
+          }
+        ],
+        staticClass: "form-control form-control-sm",
+        attrs: { type: "text", placeholder: "条件の名前を入力" },
+        domProps: { value: _vm.termsName },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
             }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-4 col-sm-3" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary save_button",
-              on: { click: _vm.saveTerms }
-            },
-            [_vm._v("保存")]
-          )
-        ])
+            _vm.termsName = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "save-button" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-outline-dark btn-sm",
+            on: { click: _vm.saveTerms }
+          },
+          [_vm._v("保存")]
+        )
       ]),
       _vm._v(" "),
       _vm.error.length > 0
@@ -39398,7 +39414,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3 col-sm-2" }, [
+    return _c("div", { staticClass: "col-6" }, [
       _c("label", { staticClass: "col-form-label", attrs: { for: "favNum" } }, [
         _vm._v("以上")
       ])
@@ -39420,7 +39436,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-3 col-sm-2" }, [
+    return _c("div", { staticClass: "col-6" }, [
       _c(
         "label",
         { staticClass: "col-form-label", attrs: { for: "retweetNum" } },
@@ -39432,9 +39448,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
+    return _c("div", { staticClass: "search-button" }, [
       _c("input", {
-        staticClass: "btn btn-primary",
+        staticClass: "btn btn-outline-dark btn-sm",
         attrs: { type: "submit", value: "検索" }
       })
     ])
@@ -39543,6 +39559,7 @@ var render = function() {
                   expression: "!saved"
                 }
               ],
+              staticClass: "btn btn-outline-dark btn-sm",
               attrs: { disabled: _vm.processing },
               on: {
                 click: function($event) {
@@ -39564,6 +39581,7 @@ var render = function() {
                   expression: "saved"
                 }
               ],
+              staticClass: "btn btn-outline-dark btn-sm",
               attrs: { disabled: _vm.processing },
               on: {
                 click: function($event) {

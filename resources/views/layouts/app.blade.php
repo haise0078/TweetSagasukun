@@ -79,7 +79,7 @@
             </div>
         </nav>
 
-        <main class="mx-5">
+        <main>
             @yield('content')
         </main>
     <script src="{{ mix('js/app.js') }}"></script>

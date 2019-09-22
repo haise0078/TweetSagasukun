@@ -1,82 +1,75 @@
 <template>
-    <div class="tweet_search">
-        <h2 class="title">Search tweets</h2>
+    <div class="tweet-search">
         <form @submit.prevent="searchTweets">
             <input type="hidden" name="_token" :value="csrf">
             <div class="form-group">
                 <label for="InputKeyword">キーワード</label>
                 <input class="form-control form-control-sm" type="text" v-model="terms.keyword" name="keyword" id="InputKeyword" placeholder="キーワードを入力">
-                <small class="form-text text-muted">スペースで区切って複数のワードを指定できます</small>
-            </div>
-            <div class="form-group">
+
+
                 <label for="InputHashTag">ハッシュタグ</label>
                 <input class="form-control form-control-sm" type="text" v-model="terms.hash_tag" name="hash_tag" id="InputHashTag" placeholder="ハッシュタグを入力">
-                <small class="form-text text-muted">スペースで区切って複数のタグを指定できます</small>
-            </div>
-            <div class="form-group">
+
+
                 <label for="InputExcludeKeyword">除外キーワード</label>
                 <input class="form-control form-control-sm" type="text" v-model="terms.exclude_keyword" name="exclude_keyword" id="InputExcludeKeyword" placeholder="除外ワードを入力">
-                <small class="form-text text-muted">スペースで区切って複数のワードを指定できます</small>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="terms.image" name="image" id="imageCheck">
-                <label class="form-check-label" for="imageCheck">
-                    画像を含む
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="terms.video" name="video" id="videoCheck">
-                <label class="form-check-label" for="videoCheck">
-                    動画を含む
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="terms.exclude_retweet" name="exclude_retweet" checked="checked" id="retweetCheck">
-                <label class="form-check-label" for="retweetCheck">
-                    リツイートを除外
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" v-model="terms.exclude_reply" name="exclude_reply" checked="checked" id="replyCheck">
-                <label class="form-check-label" for="replyCheck">
-                    リプライを除外
-                </label>
-            </div>
-            <div class="form-group row">
-                <div class="col-12">
-                    <label for="favNum" class="col-form-label">いいね数</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="terms.image" name="image" id="imageCheck">
+                    <label class="form-check-label" for="imageCheck">
+                        画像を含む
+                    </label>
                 </div>
-                <div class="col-6 col-sm-4">
-                    <input class="form-control" type="text" v-model="terms.favorite_num" name="favorite_num" id="favNum" placeholder="いいね数を指定">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="terms.video" name="video" id="videoCheck">
+                    <label class="form-check-label" for="videoCheck">
+                        動画を含む
+                    </label>
                 </div>
-                <div class="col-3 col-sm-2">
-                    <label for="favNum" class="col-form-label">以上</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="terms.exclude_retweet" name="exclude_retweet" checked="checked" id="retweetCheck">
+                    <label class="form-check-label" for="retweetCheck">
+                        リツイートを除外
+                    </label>
                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-12">
-                    <label for="retweetNum" class="col-form-label">リツイート数</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" v-model="terms.exclude_reply" name="exclude_reply" checked="checked" id="replyCheck">
+                    <label class="form-check-label" for="replyCheck">
+                        リプライを除外
+                    </label>
                 </div>
-                <div class="col-6 col-sm-4">
-                    <input class="form-control" type="text" v-model="terms.retweet_num" name="retweet_num" id="retweetNum" placeholder="リツイート数を指定">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="favNum" class="col-form-label">いいね数</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" v-model="terms.favorite_num" name="favorite_num" id="favNum" placeholder="いいね数を指定">
+                    </div>
+                    <div class="col-6">
+                        <label for="favNum" class="col-form-label">以上</label>
+                    </div>
                 </div>
-                <div class="col-3 col-sm-2">
-                    <label for="retweetNum" class="col-form-label">以上</label>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="retweetNum" class="col-form-label">リツイート数</label>
+                    </div>
+                    <div class="col-6">
+                        <input class="form-control" type="text" v-model="terms.retweet_num" name="retweet_num" id="retweetNum" placeholder="リツイート数を指定">
+                    </div>
+                    <div class="col-6">
+                        <label for="retweetNum" class="col-form-label">以上</label>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <input type="submit" class="btn btn-primary" value="検索">
+                <div class="search-button">
+                    <input type="submit" class="btn btn-outline-dark btn-sm" value="検索">
+                </div>
             </div>
         </form>
-        <br>
-        <div>
-            <div class="form-group row">
-                <div class="col-8 col-sm-6">
-                    <input class="form-control" type="text" v-model="termsName" placeholder="条件の名前を入力">
-                </div>
-                <div class="col-4 col-sm-3">
-                    <button class="btn btn-primary save_button" @click='saveTerms'>保存</button>
-                </div>
+        <div class="form-group">
+            <label>条件保存</label>
+            <input class="form-control form-control-sm" type="text" v-model="termsName" placeholder="条件の名前を入力">
+            <div class="save-button">
+                <button class="btn btn-outline-dark btn-sm" @click='saveTerms'>保存</button>
             </div>
             <div v-if="error.length > 0">
                 {{ error }}
@@ -227,11 +220,20 @@ export default {
 </script>
 
 <style scoped>
-.tweet_search {
+.tweet-search {
     padding:15px;
     background-color:#64B5F6;
 }
-.save_button {
+.save-button {
+    text-align: right;
+}
+.save-button button {
     background-color:#66BB6A;
+}
+.form-group label {
+    font-size: 0.7rem;
+}
+.search-button {
+    text-align: right;
 }
 </style>

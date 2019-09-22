@@ -21,8 +21,8 @@
                 <div class="mr-5"><i class="fas fa-retweet text-secondary"></i>{{ tweet.retweet_count }}</div>
                 <div class="mr-5"><i class="far fa-heart text-secondary"></i>{{ tweet.favorite_count }}</div>
                 <div class="mr-5">
-                    <button v-show="!saved" @click="saveTweet()" :disabled="processing"><i class="far fa-bookmark" ></i></button>
-                    <button v-show="saved" @click="deleteTweet()" :disabled="processing"><i class="fas fa-bookmark" ></i></button>
+                    <button class="btn btn-outline-dark btn-sm" v-show="!saved" @click="saveTweet()" :disabled="processing"><i class="far fa-bookmark" ></i></button>
+                    <button class="btn btn-outline-dark btn-sm" v-show="saved" @click="deleteTweet()" :disabled="processing"><i class="fas fa-bookmark" ></i></button>
                 </div>
             </div>
         </div>
