@@ -13,7 +13,6 @@ class FavoriteTweetController extends Controller
     }
     public function favorite(){
         $tweets = Tweet::where('user_id' , Auth::id())
-            ->take(10)
             ->get();
         return view('favorite', ['tweets'=>$tweets]);
     }
