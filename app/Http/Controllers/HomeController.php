@@ -29,9 +29,7 @@ class HomeController extends Controller
         if ( (Auth::user()->twitterInfomation())->get()->isEmpty()){
             return redirect('twitterSignIn');
         } else {
-            $result = $this->tweetSearch->getTweets('飯テロ');
-            $result = json_encode($result->statuses);
-            return view('twitter', ["result" => $result]);
+            return view('twitter');
         }
     }
 }

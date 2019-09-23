@@ -45,4 +45,10 @@ export default {
         padding: 8px 30px 8px 20px;
         border-bottom: 1px groove #4DB6AC;
     }
+    .nav-item a {
+        color: black;
+    }
+    .nav-item a:hover {
+        color: #818896;
+    }
 </style>

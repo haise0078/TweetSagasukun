@@ -30,7 +30,7 @@ class TwitterSignInController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
     
 
     /**
@@ -58,7 +58,7 @@ class TwitterSignInController extends Controller
             'oauth_token' => $access_token['oauth_token'],
             'oauth_token_secret' => $access_token['oauth_token_secret'],
         ]);
-        return redirect('home');
+        return redirect('/');
         
     }
 }

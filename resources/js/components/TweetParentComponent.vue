@@ -1,17 +1,5 @@
 <template>
 <div class="parent">
-    <!-- <div class="position-sticky search-btn">
-        <button class="toggle_form btn btn-primary" v-show="!open_form" @click="toggleForm"><i class="fas fa-search-plus"></i></button>
-        <button class="toggle_form btn btn-primary" v-show="open_form" @click="toggleForm"><i class="fas fa-search-minus"></i></button>
-        <tweet-search-component v-show="open_form" :result="result" :selectedTerm="selectedTerm" v-on:searched="getResult" v-on:saved="getSavedTerms"></tweet-search-component>
-    </div> -->
-    <!-- <nav class="sidebar">
-        <div class="remote-controller sticky-sidebar">
-            <button class="btn btn-primary controll-btn" v-show="savedTerms.length > 0" @click="toggleShowTerms"><i class="fas fa-bars"></i></button>
-            <select-term-component class="sticky-sidebar" v-bind:showTerms="showTerms" v-bind:savedTerms="savedTerms" v-on:selected="getSelectedTerm"></select-term-component>
-        </div>
-    </nav> -->
-    <!-- <tweet-show-component v-for="tweet in result" :key="tweet.id" v-bind:tweet="tweet"></tweet-show-component> -->
     <nav id="sidebar" class="sidebar-wrapper">
         <div class="sidebar-content">
             <ul>
@@ -112,6 +100,10 @@ export default {
         text-decoration: none;
         position: relative;
         padding: 8px 30px 8px 20px;
+        color: black;
+    }
+    .sidebar-wrapper ul li a:hover{
+        color: #818896;
     }
     .header-menu {
         font-weight: bold;
