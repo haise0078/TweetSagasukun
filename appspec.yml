@@ -59,25 +59,7 @@ permissions:
     except:
     owner: root
     group: www
-    mode: 2775
-    acls:
-      - g:www:rwx
-    type:
-      - directory
-  - object: /var/www/apps/TweetSagasukun/storage
-    pattern:
-    except:
-    owner: root
-    group: www
-    mode: 777
-    type:
-      - file
-  - object: /var/www/apps/TweetSagasukun/bootstrap/cache
-    pattern:
-    except:
-    owner: root
-    group: www
-    mode: 2775
+    mode: 2777
     acls:
       - g:www:rwx
     type:
@@ -87,9 +69,11 @@ permissions:
     except:
     owner: root
     group: www
-    mode: 777
+    mode: 2777
+    acls:
+      - g:www:rwx
     type:
-      - file
+      - directory
 # - object: /var/www/apps/TweetSagasukun/public
 #   pattern:
 #   except:
