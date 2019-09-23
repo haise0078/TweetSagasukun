@@ -27,6 +27,14 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
+// 追加
+Vue.component('tweet-parent-component', require('./components/TweetParentComponent.vue').default);
+Vue.component('tweet-search-component', require('./components/TweetSearchComponent.vue').default);
+Vue.component('tweet-show-component', require('./components/TweetShowComponent.vue').default);
+Vue.component('favorites-show-component', require('./components/FavoritesShowComponent.vue').default);
+Vue.component('favorite-show-component', require('./components/FavoriteShowComponent.vue').default);
+Vue.component('select-term-component', require('./components/SelectTermComponent.vue').default);
+
+const tweet_search = new Vue({
     el: '#app',
 });

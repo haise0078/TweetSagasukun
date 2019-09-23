@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TwitterServiceProvider::class,
+        App\Providers\TwitterConnectionProvider::class,
+        App\Providers\TweetSearchProvider::class,
+        App\Providers\TweetSaveProvider::class,
+        App\Providers\TweetDeleteProvider::class,
 
     ],
 
@@ -227,7 +231,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Twitter' => App\Facades\Twitter::class,
-
+        'TwitterConnection' => App\Facades\TwitterConnection::class,
+        'TweetSearch' => App\Facades\TweetSearch::class,
+        'TweetSave' => App\Facades\TweetSave::class,
+        'TweetDelete' => App\Facades\TweetDelete::class,
     ],
 
 ];

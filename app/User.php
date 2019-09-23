@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function twitterInfomation()
+    {
+        return $this->hasOne('App\TwitterInfomation');
+    }
+
+    public function tweet()
+    {
+        return $this->hasMany('App\Tweet');
+    }
 }

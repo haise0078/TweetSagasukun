@@ -7,7 +7,7 @@
 @endpush
 
 <div id="app">
-    <tweet-parent-component></tweet-parent-component>
+    <favorites-show-component v-bind:result="{{ $tweets }}"></favorites-show-component>
 </div>
 
 @endsection
