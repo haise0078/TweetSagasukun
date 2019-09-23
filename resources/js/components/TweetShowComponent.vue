@@ -43,7 +43,6 @@ export default {
     },
     methods: {
         saveTweet: function(){
-            console.log("save");
             this.processing = true;
             axios.post('/tweet/save/', {
                 tweet: this.tweet
@@ -69,7 +68,6 @@ export default {
         },
         deleteTweet: function(){
             this.processing = true;
-            console.log("delete");
             axios.post('/tweet/delete/', {
                 id: this.savedId
                 }).then(res=>{
@@ -94,7 +92,7 @@ export default {
         },
     },
 }
-</script>>
+</script>
 
 <style scoped>
 .image-box{

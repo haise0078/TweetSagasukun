@@ -110,7 +110,6 @@ export default {
             // ローカルストレージの整合性確認（savedTermsの条件が存在しているか）
             JSON.parse(localStorage.getItem('savedTerms')).forEach(function(element){
                 if (localStorage.getItem(element.name) !== null) {
-                    console.log(element);
                     this.savedTerms.push(element);
                 } else {
                     this.error = '【ERROR】ローカルストレージから条件「' + element.name + '」が削除されています';
@@ -135,7 +134,6 @@ export default {
                 if(typeof(res.data) === "object"){
                     this.result = res.data;
                 }
-                console.log(res.data);
                 this.$emit('searched', this.result);
             }).catch(function(error){
                 if (error.response) {
@@ -213,7 +211,6 @@ export default {
                 query_buffer = query_buffer + ' ' + 'min_retweets:' + this.terms.retweet_num;
             }
             this.query = query_buffer;
-            console.log(this.query);
         }
     }
 }

@@ -7,9 +7,7 @@
                     <span>MENU</span>
                 </li>
                 <li class="sidebar-dropdown">
-                    <!-- <button class="toggle_form btn btn-primary" v-show="!open_form" @click="toggleForm"><i class="fas fa-search-plus"></i></button> -->
                     <a href="#" class="toggle_form" v-show="!open_form" @click="toggleForm"><i class="fas fa-search-plus"></i></a>
-                    <!-- <button class="toggle_form btn btn-primary" v-show="open_form" @click="toggleForm"><i class="fas fa-search-minus"></i></button> -->
                     <a href="#" class="toggle-form" v-show="open_form" @click="toggleForm"><i class="fas fa-search-minus"></i></a>
                     <tweet-search-component v-show="open_form" :result="result" :selectedTerm="selectedTerm" v-on:searched="getResult" v-on:saved="getSavedTerms"></tweet-search-component>
                 </li>
