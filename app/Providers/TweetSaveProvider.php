@@ -13,7 +13,7 @@ class TweetSaveProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('TweetSave', 'App\Services\TweetSave');
+        $this->app->singleton('App\Services\TweetSaveInterface', 'App\Services\TweetSave');
     }
 
     /**

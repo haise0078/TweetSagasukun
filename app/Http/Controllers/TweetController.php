@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Services\TweetSearch;
-use App\Services\TweetSave;
-use App\Services\TweetDelete;
-
+use App\Services\TweetDeleteInterface;
+use App\Services\TweetSaveInterface;
+use App\Services\TweetSearchInterface;
 
 class TweetController extends Controller
 {
@@ -13,7 +12,7 @@ class TweetController extends Controller
     protected $tweetSave;
     protected $tweetDelete;
 
-    public function __construct(TweetSearch $tweetSearch, TweetSave $tweetSave, TweetDelete $tweetDelete){
+    public function __construct(TweetSearchInterface $tweetSearch, TweetSaveInterface $tweetSave, TweetDeleteInterface $tweetDelete){
         $this->tweetSearch = $tweetSearch;
         $this->tweetSave = $tweetSave;
         $this->tweetDelete = $tweetDelete;

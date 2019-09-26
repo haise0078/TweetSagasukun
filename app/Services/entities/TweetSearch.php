@@ -3,8 +3,8 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Auth;
 
-class TweetSearch {
-    public function getTweets($query){
+class TweetSearch implements TweetSearchInterface{
+    public function getTweets(string $query){
         if ( (Auth::user()->twitterInfomation())->get()->isEmpty()){
             return redirect('twitterSignIn');
         } else {

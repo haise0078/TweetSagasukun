@@ -13,7 +13,7 @@ class TweetDeleteProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('TweetDelete', 'App\Services\TweetDelete');
+        $this->app->singleton('App\Services\TweetDeleteInterface', 'App\Services\TweetDelete');
     }
 
     /**

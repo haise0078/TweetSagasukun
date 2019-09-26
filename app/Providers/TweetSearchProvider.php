@@ -13,7 +13,7 @@ class TweetSearchProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('TweetSearch', 'App\Services\TweetSearch');
+        $this->app->singleton('App\Services\TweetSearchInterface', 'App\Services\TweetSearch');
     }
 
     /**
