@@ -88,8 +88,8 @@ permissions:
 hooks:
   AfterInstall:
     - location: scripts/CodeDeploy/AfterInstall.sh
-    - timeout: 180
-    - runas: root
+      timeout: 180
+      runas: root
 # # For each deployment lifecycle event, specify multiple "location" entries 
 # #   if you want to run multiple scripts during that event.
 # # You can specify "timeout" as the number of seconds to wait until failing the deployment 
