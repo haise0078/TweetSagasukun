@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Tweet;
 
 class TweetDelete implements TweetDeleteInterface{
-    public function deleteTweet(int $id){
+    public function deleteTweet(int $id): int{
         $result = Tweet::destroy($id);
-        return $result;
+        return empty($result) ? 0 : $result;
     }
 }
