@@ -22,7 +22,7 @@ class TweetController extends Controller
     public function search(Request $request){
         $query = $request->input('query');
         $result = $this->tweetSearch->getTweets($query);
-        $result = json_encode($result->statuses);
+        $result = json_encode($result);
         return $result;
     }
     public function save(Request $request){

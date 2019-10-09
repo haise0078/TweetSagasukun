@@ -4,5 +4,5 @@ namespace App\Services;
 
 Interface TweetSaveInterface
 {
-    public function saveTweet(array $tweet);
+    public function saveTweet(array $tweet): int;
 }
